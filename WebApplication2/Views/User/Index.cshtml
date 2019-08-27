@@ -1,0 +1,30 @@
+﻿
+@model List<Users>
+
+@{
+    ViewBag.Title = "Посетители";
+}
+
+@*<h2>Index users</h2>*@
+
+@Html.ActionLink("Создать пользователя", "Create", "User")
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">ФИО</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td scope="row">@item.FIO</td>
+                <td scope="row">@Html.ActionLink("Редактировать пользователя", "Edit", "User", new { id = item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Удалить пользователя", "Delete", "User", new { id = @item.Id }, null)</td>
+            </tr>
+        }
+</table>
+
+
