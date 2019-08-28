@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Книги";
+}
+
+@model List<Books>
+
+@Html.ActionLink("Создать Книгу", "Create", "Book")
+
+@*@Html.Partial("Partial/_MyPartialView", @ViewBag.AuthorsList as List<WebApplication2.Authors>)*@
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Автор</th>
+            <th scope="col">Наименование книги</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td scope="row">@item.AuthorId</td>
+            <td scope="row">@item.Title</td>
+            <td scope="row">@item.Pages</td>
+            <td scope="row">@item.Price</td>
+            <td scope="row">@Html.ActionLink("Редактировать книгу", "Edit", "Book", new { id = @item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Удалить книгу", "Delete", "Book", new { id = @item.Id }, null)</td>
+        </tr>
+        }
+</table>
