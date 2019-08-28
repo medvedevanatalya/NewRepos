@@ -15,13 +15,13 @@ namespace WebApplication2.Controllers
             using (Model1 db = new Model1())
             {
                 authors = db.Authors.ToList();
-                ViewData["Comment"] = "New comment";
-                ViewBag.Comment = "Comment";
+                //ViewData["Comment"] = "New comment";
+                //ViewBag.Comment = "Comment";
 
-                ViewData["author"] = new Authors { FirstName = "Max", LastName = "ST" };
-                ViewBag.Author = new Authors { FirstName = "Max First", LastName = "ST" };
+                //ViewData["author"] = new Authors { FirstName = "Max", LastName = "ST" };
+                //ViewBag.Author = new Authors { FirstName = "Max First", LastName = "ST" };
 
-                TempData["author"] = "New author";
+                //TempData["author"] = "New author";
             }
             return View(authors) ;
         }
