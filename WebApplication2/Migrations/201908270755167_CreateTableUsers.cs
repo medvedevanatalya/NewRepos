@@ -31,14 +31,14 @@ namespace WebApplication2.Migrations
             //    .ForeignKey("dbo.Authors", t => t.AuthorId)
             //    .Index(t => t.AuthorId);
             
-            CreateTable(
-                "dbo.Users",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        FIO = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
+            //CreateTable(
+            //    "dbo.Users",
+            //    c => new
+            //        {
+            //            Id = c.Int(nullable: false, identity: true),
+            //            FIO = c.String(),
+            //        })
+            //    .PrimaryKey(t => t.Id);
             
         }
         

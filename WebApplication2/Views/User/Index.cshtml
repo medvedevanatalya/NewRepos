@@ -5,7 +5,7 @@
     ViewBag.Title = "Посетители";
 }
 
-@*<h2>Index users</h2>*@
+<h2>Посетители</h2>
 
 @Html.ActionLink("Создать пользователя", "Create", "User")
 
@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th scope="col">ФИО</th>
-
+            <th scope="col">Email</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +21,7 @@
         {
             <tr>
                 <td scope="row">@item.FIO</td>
+                <td scope="row">@item.EmailUser</td>
                 <td scope="row">@Html.ActionLink("Редактировать пользователя", "Edit", "User", new { id = item.Id }, null)</td>
                 <td scope="row">@Html.ActionLink("Удалить пользователя", "Delete", "User", new { id = @item.Id }, null)</td>
             </tr>

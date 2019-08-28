@@ -15,6 +15,7 @@ namespace WebApplication2
         public virtual DbSet<Authors> Authors { get; set; }
         public virtual DbSet<Books> Books { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<OrdersBooks> OrdersBooks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -35,6 +36,18 @@ namespace WebApplication2
             modelBuilder.Entity<Books>()
                 .Property(e => e.Title)
                 .IsUnicode(false);
+
+            //modelBuilder.Entity<Users>()
+            //     .HasMany(e => e.UsersAndBooks)
+            //     .WithRequired(e => e.Users)
+            //     .HasForeignKey(e => e.IdUser)
+            //     .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<Books>()
+            //    .HasMany(e => e.UsersAndBooks)
+            //    .WithRequired(e => e.Books)
+            //    .HasForeignKey(e => e.IdBook)
+            //    .WillCascadeOnDelete(false);
         }
     }
 }

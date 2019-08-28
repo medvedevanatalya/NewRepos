@@ -52,6 +52,7 @@ namespace WebApplication2.Controllers
             {
                 var oldUser = db.Users.Where(u => u.Id == user.Id).FirstOrDefault();
                 oldUser.FIO = user.FIO;
+                oldUser.EmailUser = user.EmailUser;
 
                 db.SaveChanges();
             }
