@@ -135,17 +135,23 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\UsersAndBooksController.cs" />
     <Compile Include="Entities\Authors.cs" />
     <Compile Include="Entities\Books.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entities\Users.cs" />
+    <Compile Include="Entities\UsersAndBooks.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201908270755167_CreateTableUsers.cs" />
     <Compile Include="Migrations\201908270755167_CreateTableUsers.Designer.cs">
       <DependentUpon>201908270755167_CreateTableUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908280848145_CreateTableUsersAndBooks.cs" />
+    <Compile Include="Migrations\201908280848145_CreateTableUsersAndBooks.Designer.cs">
+      <DependentUpon>201908280848145_CreateTableUsersAndBooks.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model1.cs" />
@@ -193,6 +199,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\UsersAndBooks\Index.cshtml" />
+    <Content Include="Views\UsersAndBooks\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -214,6 +222,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201908270755167_CreateTableUsers.resx">
       <DependentUpon>201908270755167_CreateTableUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908280848145_CreateTableUsersAndBooks.resx">
+      <DependentUpon>201908280848145_CreateTableUsersAndBooks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

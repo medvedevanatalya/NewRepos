@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Заказ книг</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">ФИО посетителя</th>
+                <th scope="col">Название книги</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td scope="row">@item.Users.FIO</td>
+                <td scope="row">@item.Books.Title</td>
+                @*
+        <td scope="row">@Html.ActionLink("Изменить посетителя", "Edit", "User", new { id = @item.Id }, null)</td>*@
+                @*
+        <td scope="row">@Html.ActionLink("Удалить посетителя", "Delete", "User", new { id = @item.Id }, null)</td>*@
+            </tr>
+            }
+    </table>
+

@@ -19,11 +19,12 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td scope="row">@item.FIO</td>
-                <td scope="row">@Html.ActionLink("Редактировать пользователя", "Edit", "User", new { id = item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Удалить пользователя", "Delete", "User", new { id = @item.Id }, null)</td>
-            </tr>
+        <tr>
+            <td scope="row">@item.FIO</td>
+            <td scope="row">@Html.ActionLink("Редактировать пользователя", "Edit", "User", new { id = item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Удалить пользователя", "Delete", "User", new { id = @item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Заказать книгу", "Create", "UsersAndBooks", new { id = @item.Id }, null)</td>
+        </tr>
         }
 </table>
 

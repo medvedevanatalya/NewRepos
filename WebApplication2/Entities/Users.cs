@@ -9,5 +9,8 @@ namespace WebApplication2
     {
         public int Id { get; set; }
         public string FIO { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsersAndBooks> UsersAndBooks { get; set; }
     }
 }
