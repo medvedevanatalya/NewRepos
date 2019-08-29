@@ -51,8 +51,10 @@ namespace WebApplication2.Controllers
             using (Model1 db = new Model1())
             {
                 var oldBook = db.Books.Where(a => a.Id == book.Id).FirstOrDefault();
-                oldBook.Title = book.Title;
                 oldBook.AuthorId = book.AuthorId;
+                oldBook.Title = book.Title;
+                oldBook.Pages = book.Pages;
+                oldBook.Price = book.Price;
 
                 db.SaveChanges();
             }

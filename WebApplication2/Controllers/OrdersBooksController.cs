@@ -29,8 +29,9 @@ namespace WebApplication2.Controllers
         {
             using (Model1 db = new Model1())
             {
-                //orderBook.CurentDate = DateTime.Now;
-                //orderBook.CurentDate.ToShortDateString();
+                orderBook.CurentDate = DateTime.Now;
+                orderBook.CurentDate.ToShortDateString();
+
                 db.OrdersBooks.Add(orderBook);
                 db.SaveChanges();
             }
@@ -56,11 +57,14 @@ namespace WebApplication2.Controllers
                 oldOrderBook.UserId = orderBook.UserId;
                 oldOrderBook.BookId = orderBook.BookId;
 
-                oldOrderBook.CurentDate = orderBook.CurentDate;
+                //oldOrderBook.CurentDate = DateTime.Now;
+                //oldOrderBook.CurentDate.ToShortDateString();
+
                 oldOrderBook.Deadline = orderBook.Deadline;
+                oldOrderBook.Deadline.ToShortDateString();
+
                 oldOrderBook.ActualReturnDate = orderBook.ActualReturnDate;
-
-
+                oldOrderBook.ActualReturnDate.ToShortDateString();
 
                 db.SaveChanges();
             }
