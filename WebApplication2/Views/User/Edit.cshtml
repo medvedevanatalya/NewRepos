@@ -1,4 +1,6 @@
-﻿@model WebApplication2.Users
+﻿@using WebApplication2.Helpers
+
+@model WebApplication2.Users
 
 @{
     ViewBag.Title = "Редактирование посетителя";
@@ -34,7 +36,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
+                @*<input type="submit" value="Сохранить" class="btn btn-default" />*@
+                @Html.SubmitHelper("Сохранить", "btn btn-default")
             </div>
         </div>
     </div>

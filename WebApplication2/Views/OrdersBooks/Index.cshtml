@@ -1,26 +1,30 @@
-﻿@{
+﻿@using WebApplication2.Helpers
+
+@{
     ViewBag.Title = "Заказы книг";
 }
 
 @model List<OrdersBooks>
-    
+
 @Html.ActionLink("Создать заказ", "Create", "OrdersBooks")
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Номер заказа</th>
-                <th scope="col">Пользователь</th>
-                <th scope="col">Книга</th>
+@MyHelpers.TableShow(Model, "table table-striped")
 
-                <th scope="col">Дата заказа</th>
-                <th scope="col">Срок сдачи</th>
-                <th scope="col">Дата возврата</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+@*<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Номер заказа</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Книга</th>
+
+            <th scope="col">Дата заказа</th>
+            <th scope="col">Срок сдачи</th>
+            <th scope="col">Дата возврата</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
                 <td scope="row">@item.Id</td>
                 <td scope="row">@item.UserId</td>
@@ -33,5 +37,5 @@
                 <td scope="row">@Html.ActionLink("Редактировать заказ", "Edit", "OrdersBooks", new { id = @item.Id }, null)</td>
                 <td scope="row">@Html.ActionLink("Удалить заказ", "Delete", "OrdersBooks", new { id = @item.Id }, null)</td>
             </tr>
-            }
-    </table>
+        }
+</table>*@

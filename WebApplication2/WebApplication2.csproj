@@ -148,6 +148,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MyHelpers.cs" />
     <Compile Include="Migrations\201908270755167_CreateTableUsers.cs" />
     <Compile Include="Migrations\201908270755167_CreateTableUsers.Designer.cs">
       <DependentUpon>201908270755167_CreateTableUsers.cs</DependentUpon>
@@ -215,7 +216,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
