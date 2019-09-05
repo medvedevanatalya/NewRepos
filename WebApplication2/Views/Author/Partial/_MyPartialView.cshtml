@@ -1,11 +1,5 @@
 ﻿
-@{
-    ViewBag.Title = "Авторы";
-}
-
-
-@model List<Authors>
-@Html.ActionLink("Создать автора", "Create", "Author")
+<h2>Top 5 authors</h2>
 
 <table class="table table-striped">
     <thead>
@@ -15,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in @ViewBag.AuthorsList)
         {
             <tr>
                 <td scope="row">@item.FirstName</td>
@@ -25,6 +19,3 @@
             </tr>
         }
 </table>
-
-@Html.Partial("Partial/_MyPartialView", @ViewBag.AuthorsList as List<WebApplication2.Authors>)
-

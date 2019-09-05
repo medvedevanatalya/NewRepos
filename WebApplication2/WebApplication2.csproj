@@ -213,6 +213,8 @@
     <Content Include="Views\OrdersBooks\Index.cshtml" />
     <Content Include="Views\OrdersBooks\Create.cshtml" />
     <Content Include="Views\OrdersBooks\Edit.cshtml" />
+    <Content Include="Views\Author\Partial\_MyPartialView.cshtml" />
+    <Content Include="Views\User\Partial\_UserStory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -38,9 +38,20 @@ namespace WebApplication2.Controllers
         public ActionResult Edit(int? id)
         {
             Users user;
+            List<OrdersBooks> userOrderHistory = new List<OrdersBooks>();
+
             using (Model1 db = new Model1())
             {
                 user = db.Users.Where(u => u.Id == id).FirstOrDefault();
+
+                //Истори заказов пользователя, последние 5 записей     
+                var userOrders = db.OrdersBooks.OrderByDescending(d => d.CurentDate).Select(o => o.Id).Take(5).ToList();
+                userOrders.ForEach(
+                  x =>
+                  {
+                      userOrderHistory.Add(db.OrdersBooks.Where(a => a.Id == x).FirstOrDefault());
+                  });
+                ViewBag.UserOrderHistory = userOrderHistory;
             }
             return View(user);
         }
@@ -49,12 +60,12 @@ namespace WebApplication2.Controllers
         public ActionResult Edit(Users user)
         {
             using (Model1 db = new Model1())
-            {
+            {       
                 var oldUser = db.Users.Where(u => u.Id == user.Id).FirstOrDefault();
                 oldUser.FIO = user.FIO;
                 oldUser.EmailUser = user.EmailUser;
 
-                db.SaveChanges();
+                db.SaveChanges();         
             }
             return RedirectToActionPermanent("Index", "User");
         }
@@ -68,6 +79,11 @@ namespace WebApplication2.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("Index", "User");
+        }
+
+        public ActionResult UserStory()
+        {
+            return PartialView();
         }
     }
 }

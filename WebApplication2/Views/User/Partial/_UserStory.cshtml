@@ -1,0 +1,34 @@
+﻿
+
+<h2>История заказов пользователя, последние 5 записей</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Номер заказа</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Книга</th>
+
+            <th scope="col">Дата заказа</th>
+            <th scope="col">Срок сдачи</th>
+            <th scope="col">Дата возврата</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @ViewBag.UserOrderHistory)
+        {
+            <tr>
+                <td scope="row">@item.Id</td>
+                <td scope="row">@item.UserId</td>
+                <td scope="row">@item.BookId</td>
+
+                <td scope="row">@item.CurentDate</td>
+                <td scope="row">@item.Deadline</td>
+                <td scope="row">@item.ActualReturnDate</td>
+
+                <td scope="row">@Html.ActionLink("Редактировать заказ", "Edit", "OrdersBooks", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Удалить заказ", "Delete", "OrdersBooks", new { id = @item.Id }, null)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -12,6 +12,9 @@ namespace WebApplication2.Controllers
         public ActionResult Index()
         {
             List<Authors> authors;
+
+            List<Authors> authorsTop = new List<Authors>();
+
             using (Model1 db = new Model1())
             {
                 authors = db.Authors.ToList();
@@ -22,6 +25,17 @@ namespace WebApplication2.Controllers
                 //ViewBag.Author = new Authors { FirstName = "Max First", LastName = "ST" };
 
                 //TempData["author"] = "New author";
+
+
+                //ТОП 5 АВТОРОВ
+                var expensiveBooks = db.Books.OrderByDescending(b => b.Price).Select(b => b.AuthorId).Distinct().Take(5).ToList(); //топ 5 авторов
+                expensiveBooks.ForEach(
+                  x =>
+                  {
+                      authorsTop.Add(db.Authors.Where(a => a.Id == x).FirstOrDefault());
+                  });
+                ViewBag.AuthorsList = authorsTop;   
+
             }
             return View(authors) ;
         }
@@ -75,6 +89,11 @@ namespace WebApplication2.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("Index", "Author");
+        }
+
+        public ActionResult MyPartialView()
+        {
+            return PartialView();
         }
     }
 }
