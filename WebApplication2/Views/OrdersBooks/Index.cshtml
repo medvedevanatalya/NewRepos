@@ -1,4 +1,4 @@
-﻿@using WebApplication2.Helpers
+﻿@*@using WebApplication2.Helpers*@
 
 @{
     ViewBag.Title = "Заказы книг";
@@ -8,9 +8,9 @@
 
 @Html.ActionLink("Создать заказ", "Create", "OrdersBooks")
 
-@MyHelpers.TableShow(Model, "table table-striped")
+@*@MyHelpers.TableShow(Model, "table table-striped")*@
 
-@*<table class="table table-striped">
+<table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">Номер заказа</th>
@@ -36,6 +36,13 @@
 
                 <td scope="row">@Html.ActionLink("Редактировать заказ", "Edit", "OrdersBooks", new { id = @item.Id }, null)</td>
                 <td scope="row">@Html.ActionLink("Удалить заказ", "Delete", "OrdersBooks", new { id = @item.Id }, null)</td>
+            
+                @if(DateTime.Now > @item.Deadline)
+                {
+                    <td scope="row"><input type="submit" value="Отправить уведомление" class="btn btn-default" /></td>
+
+                }                           
+
             </tr>
         }
-</table>*@
+</table>

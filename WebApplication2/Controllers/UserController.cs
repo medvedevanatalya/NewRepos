@@ -44,7 +44,7 @@ namespace WebApplication2.Controllers
             {
                 user = db.Users.Where(u => u.Id == id).FirstOrDefault();
 
-                //Истори заказов пользователя, последние 5 записей     
+                //История заказов пользователя, последние 5 записей     
                 var userOrders = db.OrdersBooks.OrderByDescending(d => d.CurentDate).Select(o => o.Id).Take(5).ToList();
                 userOrders.ForEach(
                   x =>

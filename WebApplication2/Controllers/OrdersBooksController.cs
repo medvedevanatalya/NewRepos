@@ -14,13 +14,13 @@ namespace WebApplication2.Controllers
             List<OrdersBooks> ordersBooks;
             using (Model1 db = new Model1())
             {
-                ordersBooks = db.OrdersBooks.ToList();
+                ordersBooks = db.OrdersBooks.ToList();      
             }
             return View(ordersBooks);
         }
 
         public ActionResult Create()
-        {
+        {            
             return View();
         }
 
@@ -31,7 +31,7 @@ namespace WebApplication2.Controllers
             {
                 orderBook.CurentDate = DateTime.Now;
                 orderBook.CurentDate.ToShortDateString();
-
+                  
                 db.OrdersBooks.Add(orderBook);
                 db.SaveChanges();
             }
