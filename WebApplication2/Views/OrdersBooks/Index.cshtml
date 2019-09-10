@@ -25,24 +25,23 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td scope="row">@item.Id</td>
-                <td scope="row">@item.UserId</td>
-                <td scope="row">@item.BookId</td>
+        <tr>
+            <td scope="row">@item.Id</td>
+            <td scope="row">@item.UserId</td>
+            <td scope="row">@item.BookId</td>
 
-                <td scope="row">@item.CurentDate</td>
-                <td scope="row">@item.Deadline</td>
-                <td scope="row">@item.ActualReturnDate</td>
+            <td scope="row">@item.CurentDate</td>
+            <td scope="row">@item.Deadline</td>
+            <td scope="row">@item.ActualReturnDate</td>
 
-                <td scope="row">@Html.ActionLink("Редактировать заказ", "Edit", "OrdersBooks", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Удалить заказ", "Delete", "OrdersBooks", new { id = @item.Id }, null)</td>
-            
-                @if(DateTime.Now > @item.Deadline)
-                {
-                    <td scope="row"><input type="submit" value="Отправить уведомление" class="btn btn-default" /></td>
+            <td scope="row">@Html.ActionLink("Редактировать заказ", "Edit", "OrdersBooks", new { id = @item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Удалить заказ", "Delete", "OrdersBooks", new { id = @item.Id }, null)</td>
 
-                }                           
+            @if (DateTime.Now > @item.Deadline)
+            {
+                <td scope="row">@Html.ActionLink("Отправить уведомление", "SendNotification", new { id = @item.UserId }, null)</td>
+            }
 
-            </tr>
+        </tr>
         }
 </table>

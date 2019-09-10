@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -82,6 +84,26 @@ namespace WebApplication2.Controllers
             return RedirectToAction("Index", "OrdersBooks");
         }
 
+        public ActionResult SendNotification(int userId)
+        {    
+            Users user;
+            using (Model1 db = new Model1())
+            {
+                user = db.Users.Where(us => us.Id == (int)userId).FirstOrDefault();
+            }
 
+            MailAddress fromWhom = new MailAddress("natali13_96@mail.ru", "Верните книгу!");
+            MailAddress toWhom = new MailAddress(user.EmailUser);
+            MailMessage message = new MailMessage(fromWhom, toWhom);
+            message.Subject = "Верните книгу!";
+            message.Body = string.Format("Уважаемый " + user.FIO + " верните книгу!");
+            message.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
+            smtp.Credentials = new NetworkCredential("natali13_96@mail.ru", "150596natalya.96N");
+            smtp.EnableSsl = true;
+            smtp.Send(message);
+
+            return RedirectToAction("Index");
+        }
     }
 }
