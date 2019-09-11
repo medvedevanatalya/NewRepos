@@ -148,6 +148,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="FiltersHelper.cs" />
     <Compile Include="Helpers\MyHelpers.cs" />
     <Compile Include="Migrations\201908270755167_CreateTableUsers.cs" />
     <Compile Include="Migrations\201908270755167_CreateTableUsers.Designer.cs">
@@ -215,6 +216,7 @@
     <Content Include="Views\OrdersBooks\Edit.cshtml" />
     <Content Include="Views\Author\Partial\_MyPartialView.cshtml" />
     <Content Include="Views\User\Partial\_UserStory.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

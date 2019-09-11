@@ -9,23 +9,16 @@ namespace WebApplication2.Controllers
     public class AuthorController : Controller
     {
         // GET: Author
+
+        //[HandleError]
         public ActionResult Index()
         {
-            List<Authors> authors;
-
+            List<Authors> authors;   
             List<Authors> authorsTop = new List<Authors>();
 
             using (Model1 db = new Model1())
             {
-                authors = db.Authors.ToList();
-                //ViewData["Comment"] = "New comment";
-                //ViewBag.Comment = "Comment";
-
-                //ViewData["author"] = new Authors { FirstName = "Max", LastName = "ST" };
-                //ViewBag.Author = new Authors { FirstName = "Max First", LastName = "ST" };
-
-                //TempData["author"] = "New author";
-
+                authors = db.Authors.ToList();  
 
                 //ТОП 5 АВТОРОВ
                 var expensiveBooks = db.Books.OrderByDescending(b => b.Price).Select(b => b.AuthorId).Distinct().Take(5).ToList(); //топ 5 авторов
@@ -34,8 +27,7 @@ namespace WebApplication2.Controllers
                   {
                       authorsTop.Add(db.Authors.Where(a => a.Id == x).FirstOrDefault());
                   });
-                ViewBag.AuthorsList = authorsTop;   
-
+                ViewBag.AuthorsList = authorsTop;  
             }
             return View(authors) ;
         }
@@ -56,8 +48,12 @@ namespace WebApplication2.Controllers
             return Redirect("Index");
         }
 
+
+        [FiltersHelper]
         public ActionResult Edit(int? id)
         {
+            ReturnEx(id);
+
             Authors author;
             using (Model1 db = new Model1())
             {
@@ -65,6 +61,14 @@ namespace WebApplication2.Controllers
             }
             return View(author);
         }
+
+
+        private void ReturnEx(int? id)
+        {
+            int zero = 0;
+            var temp = id / zero;
+        }
+
 
         [HttpPost]
         public ActionResult Edit(Authors author)
