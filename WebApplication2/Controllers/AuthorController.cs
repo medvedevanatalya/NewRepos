@@ -17,15 +17,7 @@ namespace WebApplication2.Controllers
 
             using (Model1 db = new Model1())
             {
-                authors = db.Authors.ToList();
-                //ViewData["Comment"] = "New comment";
-                //ViewBag.Comment = "Comment";
-
-                //ViewData["author"] = new Authors { FirstName = "Max", LastName = "ST" };
-                //ViewBag.Author = new Authors { FirstName = "Max First", LastName = "ST" };
-
-                //TempData["author"] = "New author";
-
+                authors = db.Authors.ToList();  
 
                 //ТОП 5 АВТОРОВ
                 var expensiveBooks = db.Books.OrderByDescending(b => b.Price).Select(b => b.AuthorId).Distinct().Take(5).ToList(); //топ 5 авторов
@@ -40,23 +32,50 @@ namespace WebApplication2.Controllers
             return View(authors) ;
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        public ActionResult Create(Authors author)
-        {
-            using (Model1 db = new Model1())
-            {
-                db.Authors.Add(author);
-                db.SaveChanges();
-            }
-            return Redirect("Index");
-        }
+        #region Views Create и Edit отдельно 
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        public ActionResult Edit(int? id)
+        //[HttpPost]
+        //public ActionResult Create(Authors author)
+        //{
+        //    using (Model1 db = new Model1())
+        //    {
+        //        db.Authors.Add(author);
+        //        db.SaveChanges();
+        //    }
+        //    return Redirect("Index");
+        //}
+
+        //public ActionResult Edit(int? id)
+        //{
+        //    Authors author;
+        //    using (Model1 db = new Model1())
+        //    {
+        //        author = db.Authors.Where(a => a.Id == id).FirstOrDefault();
+        //    }
+        //    return View(author);
+        //}
+
+        //[HttpPost]
+        //public ActionResult Edit(Authors author)
+        //{
+        //    using (Model1 db = new Model1())
+        //    {
+        //        var oldAuthor = db.Authors.Where(a => a.Id == author.Id).FirstOrDefault();
+        //        oldAuthor.FirstName = author.FirstName;
+        //        oldAuthor.LastName = author.LastName;
+
+        //        db.SaveChanges();
+        //    }
+        //    return RedirectToActionPermanent("Index", "Author");
+        //}
+        #endregion
+
+        public ActionResult CreateAndEdit(int? id)
         {
             Authors author;
             using (Model1 db = new Model1())
@@ -67,14 +86,22 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Authors author)
+        public ActionResult CreateAndEdit(Authors author)
         {
             using (Model1 db = new Model1())
             {
-                var oldAuthor = db.Authors.Where(a => a.Id == author.Id).FirstOrDefault();
-                oldAuthor.FirstName = author.FirstName;
-                oldAuthor.LastName = author.LastName;
+                if(author.Id==0)
+                {
+                    Authors newAuthor = new Authors() { FirstName = author.FirstName, LastName = author.LastName };
+                    db.Authors.Add(newAuthor);
+                }
+                else
+                {
+                    Authors oldAuthor = db.Authors.Where(a => a.Id == author.Id).FirstOrDefault();
 
+                    oldAuthor.FirstName = author.FirstName;
+                    oldAuthor.LastName = author.LastName;
+                } 
                 db.SaveChanges();
             }
             return RedirectToActionPermanent("Index", "Author");

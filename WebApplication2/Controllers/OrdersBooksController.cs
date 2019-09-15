@@ -16,61 +16,127 @@ namespace WebApplication2.Controllers
             List<OrdersBooks> ordersBooks;
             using (Model1 db = new Model1())
             {
-                ordersBooks = db.OrdersBooks.ToList();      
+                ordersBooks = db.OrdersBooks.ToList();
             }
             return View(ordersBooks);
         }
 
-        public ActionResult Create()
-        {            
-            return View();
-        }
+        #region Views Create Edit
+        //public ActionResult Create()
+        //{            
+        //    return View();
+        //}
 
-        [HttpPost]
-        public ActionResult Create(OrdersBooks orderBook)
-        {
-            using (Model1 db = new Model1())
-            {
-                orderBook.CurentDate = DateTime.Now;
-                orderBook.CurentDate.ToShortDateString();
-                  
-                db.OrdersBooks.Add(orderBook);
-                db.SaveChanges();
-            }
-            return Redirect("Index");
-        }
+        //[HttpPost]
+        //public ActionResult Create(OrdersBooks orderBook)
+        //{
+        //    using (Model1 db = new Model1())
+        //    {
+        //        orderBook.CurentDate = DateTime.Now;
+        //        orderBook.CurentDate.ToShortDateString();
 
-        public ActionResult Edit(int? id)
+        //        db.OrdersBooks.Add(orderBook);
+        //        db.SaveChanges();
+        //    }
+        //    return Redirect("Index");
+        //}
+
+        //public ActionResult Edit(int? id)
+        //{
+        //    OrdersBooks orderBook;
+        //    using (Model1 db = new Model1())
+        //    {
+        //        orderBook = db.OrdersBooks.Where(a => a.Id == id).FirstOrDefault();
+        //    }
+        //    return View(orderBook);
+        //}
+
+        //[HttpPost]
+        //public ActionResult Edit(OrdersBooks orderBook)
+        //{
+        //    using (Model1 db = new Model1())
+        //    {
+        //        var oldOrderBook = db.OrdersBooks.Where(a => a.Id == orderBook.Id).FirstOrDefault();
+        //        oldOrderBook.UserId = orderBook.UserId;
+        //        oldOrderBook.BookId = orderBook.BookId;
+
+        //        //oldOrderBook.CurentDate = DateTime.Now;
+        //        //oldOrderBook.CurentDate.ToShortDateString();
+
+        //        oldOrderBook.Deadline = orderBook.Deadline;
+        //        oldOrderBook.Deadline.ToShortDateString();
+
+        //        oldOrderBook.ActualReturnDate = orderBook.ActualReturnDate;
+        //        oldOrderBook.ActualReturnDate.ToShortDateString();
+
+        //        db.SaveChanges();
+        //    }
+        //    return RedirectToActionPermanent("Index", "OrdersBooks");
+        //}
+        #endregion
+                     
+
+        public ActionResult CreateAndEdit(int? id)
         {
             OrdersBooks orderBook;
+            List<Books> books;
+            List<Users> users;
+
             using (Model1 db = new Model1())
             {
+                books = db.Books.ToList();
+                users = db.Users.ToList();
+                 
+                ViewBag.Books = new SelectList(books, "Id", "Title");
+                ViewBag.Users = new SelectList(users, "Id", "FIO");
+
                 orderBook = db.OrdersBooks.Where(a => a.Id == id).FirstOrDefault();
             }
-            return View(orderBook);
+            return View(orderBook);     
         }
 
         [HttpPost]
-        public ActionResult Edit(OrdersBooks orderBook)
+        public ActionResult CreateAndEdit(OrdersBooks orderBook)
         {
             using (Model1 db = new Model1())
             {
-                var oldOrderBook = db.OrdersBooks.Where(a => a.Id == orderBook.Id).FirstOrDefault();
-                oldOrderBook.UserId = orderBook.UserId;
-                oldOrderBook.BookId = orderBook.BookId;
+                List<Books> books = db.Books.ToList();
+                List<Users> users = db.Users.ToList();
 
-                //oldOrderBook.CurentDate = DateTime.Now;
-                //oldOrderBook.CurentDate.ToShortDateString();
+                if (orderBook.Deadline == null || orderBook.Deadline < DateTime.Now)
+                {
+                    ViewBag.Books = new SelectList(books, "Id", "Title", orderBook.BookId);
+                    ViewBag.Users = new SelectList(users, "Id", "FIO", orderBook.UserId);
+                    ViewBag.Error = "Дата сдачи книга не может быть пустой или быть меньше текущей даты";
+                    return View(orderBook);
+                }
 
-                oldOrderBook.Deadline = orderBook.Deadline;
-                oldOrderBook.Deadline.ToShortDateString();
 
-                oldOrderBook.ActualReturnDate = orderBook.ActualReturnDate;
-                oldOrderBook.ActualReturnDate.ToShortDateString();
+                if (orderBook.Id == 0)
+                {
+                    orderBook.CurentDate = DateTime.Now;
+                    orderBook.CurentDate.ToShortDateString();
 
-                db.SaveChanges();
+                    OrdersBooks newOrderBook = new OrdersBooks() { UserId = orderBook.UserId, BookId = orderBook.BookId, CurentDate = orderBook.CurentDate, Deadline = orderBook.Deadline, ActualReturnDate = orderBook.ActualReturnDate };
+
+                    db.OrdersBooks.Add(newOrderBook);
+                }
+                else
+                {
+                    OrdersBooks oldOrderBook = db.OrdersBooks.Where(a => a.Id == orderBook.Id).FirstOrDefault();
+
+                    oldOrderBook.UserId = orderBook.UserId;
+                    oldOrderBook.BookId = orderBook.BookId;
+
+                    oldOrderBook.Deadline = orderBook.Deadline;
+                    oldOrderBook.Deadline.ToShortDateString();
+
+                    oldOrderBook.ActualReturnDate = orderBook.ActualReturnDate;
+                    oldOrderBook.ActualReturnDate.ToShortDateString();
+                }
+                db.SaveChanges();   
             }
-            return RedirectToActionPermanent("Index", "OrdersBooks");
+            return RedirectToActionPermanent("Index", "OrdersBooks");  
         }
 
         public ActionResult Delete(int id)
@@ -82,7 +148,7 @@ namespace WebApplication2.Controllers
                 db.SaveChanges();
             }
             return RedirectToAction("Index", "OrdersBooks");
-        }
+        } 
 
         public ActionResult SendNotification(int userId)
         {    

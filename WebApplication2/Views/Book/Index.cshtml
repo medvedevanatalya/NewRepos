@@ -4,7 +4,7 @@
 
 @model List<Books>
 
-@Html.ActionLink("Создать Книгу", "Create", "Book")
+@Html.ActionLink("Создать Книгу", "CreateAndEdit", "Book")
 
 @*@Html.Partial("Partial/_MyPartialView", @ViewBag.AuthorsList as List<WebApplication2.Authors>)*@
 
@@ -13,6 +13,8 @@
         <tr>
             <th scope="col">Автор</th>
             <th scope="col">Наименование книги</th>
+            <th scope="col">Количество страниц</th>
+            <th scope="col">Цена</th>
         </tr>
     </thead>
     <tbody>
@@ -23,7 +25,7 @@
             <td scope="row">@item.Title</td>
             <td scope="row">@item.Pages</td>
             <td scope="row">@item.Price</td>
-            <td scope="row">@Html.ActionLink("Редактировать книгу", "Edit", "Book", new { id = @item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Редактировать книгу", "CreateAndEdit", "Book", new { id = @item.Id }, null)</td>
             <td scope="row">@Html.ActionLink("Удалить книгу", "Delete", "Book", new { id = @item.Id }, null)</td>
         </tr>
         }

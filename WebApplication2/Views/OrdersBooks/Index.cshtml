@@ -6,7 +6,7 @@
 
 @model List<OrdersBooks>
 
-@Html.ActionLink("Создать заказ", "Create", "OrdersBooks")
+@Html.ActionLink("Создать заказ", "CreateAndEdit", "OrdersBooks")
 
 @*@MyHelpers.TableShow(Model, "table table-striped")*@
 
@@ -34,8 +34,9 @@
             <td scope="row">@item.Deadline</td>
             <td scope="row">@item.ActualReturnDate</td>
 
-            <td scope="row">@Html.ActionLink("Редактировать заказ", "Edit", "OrdersBooks", new { id = @item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Редактировать заказ", "CreateAndEdit", "OrdersBooks", new { id = @item.Id }, null)</td>
             <td scope="row">@Html.ActionLink("Удалить заказ", "Delete", "OrdersBooks", new { id = @item.Id }, null)</td>
+
 
             @if (DateTime.Now > @item.Deadline)
             {
