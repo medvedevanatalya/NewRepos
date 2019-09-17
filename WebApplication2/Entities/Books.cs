@@ -8,8 +8,10 @@ namespace WebApplication2
 
     public partial class Books
     {
+        [Required]
         public int Id { get; set; }
 
+        [Required]
         public int AuthorId { get; set; }
 
         [Required]
@@ -24,5 +26,11 @@ namespace WebApplication2
 
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<UsersAndBooks> UsersAndBooks { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Genres> Genres { get; set; }
+
+        public byte[] Image { get; set; }
+
     }
 }

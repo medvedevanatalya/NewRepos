@@ -143,6 +143,7 @@
     <Compile Include="Entities\Books.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Entities\Genres.cs" />
     <Compile Include="Entities\OrdersBooks.cs" />
     <Compile Include="Entities\Users.cs" />
     <Compile Include="Global.asax.cs">
@@ -161,6 +162,10 @@
     <Compile Include="Migrations\201908281326464_AddDateAndEmail.Designer.cs">
       <DependentUpon>201908281326464_AddDateAndEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909171315007_CreateTableGenreAddImage.cs" />
+    <Compile Include="Migrations\201909171315007_CreateTableGenreAddImage.Designer.cs">
+      <DependentUpon>201909171315007_CreateTableGenreAddImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -170,6 +175,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\gallery-images.css" />
+    <Content Include="Content\MyStyles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -238,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908281326464_AddDateAndEmail.resx">
       <DependentUpon>201908281326464_AddDateAndEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171315007_CreateTableGenreAddImage.resx">
+      <DependentUpon>201909171315007_CreateTableGenreAddImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
