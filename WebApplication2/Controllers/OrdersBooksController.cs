@@ -193,6 +193,11 @@ namespace WebApplication2.Controllers
 
         public ActionResult CreateAndEdit(int? id)
         {
+            var books = unitOfWork.BookUoWRepository.GetAll();
+            var users = unitOfWork.UserUoWRepository.GetAll();  
+            ViewBag.Books = new SelectList(books, "Id", "Title");
+            ViewBag.Users = new SelectList(users, "Id", "FIO");
+
             OrdersBooks model = unitOfWork.OrderBookUoWRepository.Get(id);
             return View(model);
         }
@@ -200,8 +205,22 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult CreateAndEdit(OrdersBooks ordersBooks)
         {
+
+            var books = unitOfWork.BookUoWRepository.GetAll();
+            var users = unitOfWork.UserUoWRepository.GetAll();
+
+            if (ordersBooks.Deadline == null || ordersBooks.Deadline < DateTime.Now)
+            {
+                ViewBag.Books = new SelectList(books, "Id", "Title", ordersBooks.BookId);
+                ViewBag.Users = new SelectList(users, "Id", "FIO", ordersBooks.UserId);
+                ViewBag.Error = "Дата сдачи книга не может быть пустой или быть меньше текущей даты";
+                return View(ordersBooks);
+            }
+
             if (ordersBooks.Id == 0)
             {
+                ordersBooks.CurentDate = DateTime.Now;
+                ordersBooks.CurentDate.ToShortDateString();
                 unitOfWork.OrderBookUoWRepository.Add(ordersBooks);
             }
             else

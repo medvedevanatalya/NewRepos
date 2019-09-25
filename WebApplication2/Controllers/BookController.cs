@@ -133,6 +133,9 @@ namespace WebApplication2.Controllers
 
         public ActionResult CreateAndEdit(int? id)
         {
+            var authors = unitOfWork.AuthorUoWRepository.GetAll();
+            ViewBag.Authors = new SelectList(authors, "Id", "FirstName");
+
             Books model = unitOfWork.BookUoWRepository.Get(id);
             return View(model);
         }
@@ -150,7 +153,7 @@ namespace WebApplication2.Controllers
             }
             unitOfWork.BookUoWRepository.Save();
 
-            return RedirectToActionPermanent("Index", "Author");
+            return RedirectToActionPermanent("Index", "Book");
         }
 
         public ActionResult Delete(int id)
@@ -158,7 +161,7 @@ namespace WebApplication2.Controllers
             unitOfWork.BookUoWRepository.Delete(id);
             unitOfWork.BookUoWRepository.Save();
 
-            return RedirectToActionPermanent("Index", "Author");
+            return RedirectToActionPermanent("Index", "Book");
         }
 
         #endregion

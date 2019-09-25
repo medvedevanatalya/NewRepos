@@ -162,6 +162,10 @@
     <Compile Include="Migrations\201908281326464_AddDateAndEmail.Designer.cs">
       <DependentUpon>201908281326464_AddDateAndEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909251414316_update.cs" />
+    <Compile Include="Migrations\201909251414316_update.Designer.cs">
+      <DependentUpon>201909251414316_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Entities\Model1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -243,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201908281326464_AddDateAndEmail.resx">
       <DependentUpon>201908281326464_AddDateAndEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909251414316_update.resx">
+      <DependentUpon>201909251414316_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
