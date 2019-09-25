@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -218,6 +219,44 @@ namespace WebApplication2.Controllers
             unitOfWork.OrderBookUoWRepository.Save();
 
             return RedirectToActionPermanent("Index", "OrdersBooks");
+        }
+
+        public ActionResult SendNotification(int userId)
+        {
+            Users user = unitOfWork.UserUoWRepository.Get(userId);
+
+            MailAddress fromWhom = new MailAddress("natali13_96@mail.ru", "Верните книгу!");
+            MailAddress toWhom = new MailAddress(user.EmailUser);
+            MailMessage message = new MailMessage(fromWhom, toWhom);
+            message.Subject = "Верните книгу!";
+            message.Body = string.Format("Уважаемый " + user.FIO + " верните книгу!");
+            message.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
+            smtp.Credentials = new NetworkCredential("natali13_96@mail.ru", "150596natalya.96N");
+            smtp.EnableSsl = true;
+            smtp.Send(message);
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DownloadListDebtors()
+        {
+            List<OrdersBooks> listDebtors = unitOfWork.OrderBookUoWRepository.GetAll().Where(i => i.Deadline < DateTime.Now).ToList();
+
+            StringBuilder sb = new StringBuilder();
+            string header = "№\t User\t Book\t Deadline";
+            sb.Append(header);
+            sb.Append("\r\n\r\n");
+            sb.Append('-', header.Length * 2);
+            sb.Append("\r\n\r\n");
+            foreach (var item in listDebtors)
+            {
+                sb.Append((listDebtors.IndexOf(item) + 1) + "\t " + item.UserId + "\t " + item.BookId + "\t " + item.Deadline.Date + "\r\n");
+            }
+            byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
+
+            string contentType = "text/plain";
+            return File(data, contentType, "listDebtors.txt");
         }
 
         #endregion

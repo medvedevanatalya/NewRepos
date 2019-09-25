@@ -4,7 +4,10 @@
     ViewBag.Title = "Заказы книг";
 }
 
-@Html.ActionLink("Создать заказ", "CreateAndEdit", "OrdersBooks")
+@Html.ActionLink("Создать заказ", "CreateAndEdit", "OrdersBooks")    |
+
+@Html.ActionLink("Скачать список должников", "DownloadListDebtors")
+
 
 @*@MyHelpers.TableShow(Model, "table table-striped")*@
 
