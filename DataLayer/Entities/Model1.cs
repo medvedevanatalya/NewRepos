@@ -1,9 +1,10 @@
-namespace WebApplication2
+namespace DataLayer.Entities
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.Runtime.Remoting.Contexts;
 
     public partial class Model1 : DbContext
     {

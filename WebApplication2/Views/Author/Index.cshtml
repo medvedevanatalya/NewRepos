@@ -1,6 +1,4 @@
-﻿@model IEnumerable<WebApplication2.Authors>
-
-@{
+﻿@{
     ViewBag.Title = "Авторы";
 }
 
@@ -16,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.Authors)
         {
             <tr>
                 <td scope="row">@item.FirstName</td>
@@ -26,3 +24,5 @@
             </tr>
         }
 </table>
+
+@Html.Partial("Partial/_MyPartialView", @ViewBag.ListTopAuthors as List<WebApplication2.ViewModels.AuthorViewModel>)

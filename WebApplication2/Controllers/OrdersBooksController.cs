@@ -11,6 +11,8 @@ namespace WebApplication2.Controllers
 {
     public class OrdersBooksController : Controller
     {
+        #region    До разделениия проекта на слои
+
         #region        До добавления UnitOfWork
         ////// GET: OrdersBooks
         ////public ActionResult Index()
@@ -175,108 +177,113 @@ namespace WebApplication2.Controllers
         ////}
         #endregion
 
-
-
         #region После добавления UnitOfWork
 
-        WebApplication2.UnitOfWork.UnitOfWork unitOfWork;
-        public OrdersBooksController()
-        {
-            unitOfWork = new UnitOfWork.UnitOfWork();
-        }
+        //WebApplication2.UnitOfWork.UnitOfWork unitOfWork;
+        //public OrdersBooksController()
+        //{
+        //    unitOfWork = new UnitOfWork.UnitOfWork();
+        //}
 
-        public ActionResult Index()
-        {
-            var model = unitOfWork.OrderBookUoWRepository.GetAll();
-            return View(model);
-        }
+        //public ActionResult Index()
+        //{
+        //    var model = unitOfWork.OrderBookUoWRepository.GetAll();
+        //    return View(model);
+        //}
 
-        public ActionResult CreateAndEdit(int? id)
-        {
-            var books = unitOfWork.BookUoWRepository.GetAll();
-            var users = unitOfWork.UserUoWRepository.GetAll();  
-            ViewBag.Books = new SelectList(books, "Id", "Title");
-            ViewBag.Users = new SelectList(users, "Id", "FIO");
+        //public ActionResult CreateAndEdit(int? id)
+        //{
+        //    var books = unitOfWork.BookUoWRepository.GetAll();
+        //    var users = unitOfWork.UserUoWRepository.GetAll();  
+        //    ViewBag.Books = new SelectList(books, "Id", "Title");
+        //    ViewBag.Users = new SelectList(users, "Id", "FIO");
 
-            OrdersBooks model = unitOfWork.OrderBookUoWRepository.Get(id);
-            return View(model);
-        }
+        //    OrdersBooks model = unitOfWork.OrderBookUoWRepository.Get(id);
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public ActionResult CreateAndEdit(OrdersBooks ordersBooks)
-        {
+        //[HttpPost]
+        //public ActionResult CreateAndEdit(OrdersBooks ordersBooks)
+        //{
 
-            var books = unitOfWork.BookUoWRepository.GetAll();
-            var users = unitOfWork.UserUoWRepository.GetAll();
+        //    var books = unitOfWork.BookUoWRepository.GetAll();
+        //    var users = unitOfWork.UserUoWRepository.GetAll();
 
-            if (ordersBooks.Deadline == null || ordersBooks.Deadline < DateTime.Now)
-            {
-                ViewBag.Books = new SelectList(books, "Id", "Title", ordersBooks.BookId);
-                ViewBag.Users = new SelectList(users, "Id", "FIO", ordersBooks.UserId);
-                ViewBag.Error = "Дата сдачи книга не может быть пустой или быть меньше текущей даты";
-                return View(ordersBooks);
-            }
+        //    if (ordersBooks.Deadline == null || ordersBooks.Deadline < DateTime.Now)
+        //    {
+        //        ViewBag.Books = new SelectList(books, "Id", "Title", ordersBooks.BookId);
+        //        ViewBag.Users = new SelectList(users, "Id", "FIO", ordersBooks.UserId);
+        //        ViewBag.Error = "Дата сдачи книга не может быть пустой или быть меньше текущей даты";
+        //        return View(ordersBooks);
+        //    }
 
-            if (ordersBooks.Id == 0)
-            {
-                ordersBooks.CurentDate = DateTime.Now;
-                ordersBooks.CurentDate.ToShortDateString();
-                unitOfWork.OrderBookUoWRepository.Add(ordersBooks);
-            }
-            else
-            {
-                unitOfWork.OrderBookUoWRepository.Update(ordersBooks);
-            }
-            unitOfWork.OrderBookUoWRepository.Save();
+        //    if (ordersBooks.Id == 0)
+        //    {
+        //        ordersBooks.CurentDate = DateTime.Now;
+        //        ordersBooks.CurentDate.ToShortDateString();
+        //        unitOfWork.OrderBookUoWRepository.Add(ordersBooks);
+        //    }
+        //    else
+        //    {
+        //        unitOfWork.OrderBookUoWRepository.Update(ordersBooks);
+        //    }
+        //    unitOfWork.OrderBookUoWRepository.Save();
 
-            return RedirectToActionPermanent("Index", "OrdersBooks");
-        }
+        //    return RedirectToActionPermanent("Index", "OrdersBooks");
+        //}
 
-        public ActionResult Delete(int id)
-        {
-            unitOfWork.OrderBookUoWRepository.Delete(id);
-            unitOfWork.OrderBookUoWRepository.Save();
+        //public ActionResult Delete(int id)
+        //{
+        //    unitOfWork.OrderBookUoWRepository.Delete(id);
+        //    unitOfWork.OrderBookUoWRepository.Save();
 
-            return RedirectToActionPermanent("Index", "OrdersBooks");
-        }
+        //    return RedirectToActionPermanent("Index", "OrdersBooks");
+        //}
 
-        public ActionResult SendNotification(int userId)
-        {
-            Users user = unitOfWork.UserUoWRepository.Get(userId);
+        //public ActionResult SendNotification(int userId)
+        //{
+        //    Users user = unitOfWork.UserUoWRepository.Get(userId);
 
-            MailAddress fromWhom = new MailAddress("natali13_96@mail.ru", "Верните книгу!");
-            MailAddress toWhom = new MailAddress(user.EmailUser);
-            MailMessage message = new MailMessage(fromWhom, toWhom);
-            message.Subject = "Верните книгу!";
-            message.Body = string.Format("Уважаемый " + user.FIO + " верните книгу!");
-            message.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
-            smtp.Credentials = new NetworkCredential("natali13_96@mail.ru", "150596natalya.96N");
-            smtp.EnableSsl = true;
-            smtp.Send(message);
+        //    MailAddress fromWhom = new MailAddress("natali13_96@mail.ru", "Верните книгу!");
+        //    MailAddress toWhom = new MailAddress(user.EmailUser);
+        //    MailMessage message = new MailMessage(fromWhom, toWhom);
+        //    message.Subject = "Верните книгу!";
+        //    message.Body = string.Format("Уважаемый " + user.FIO + " верните книгу!");
+        //    message.IsBodyHtml = true;
+        //    SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
+        //    smtp.Credentials = new NetworkCredential("natali13_96@mail.ru", "150596natalya.96N");
+        //    smtp.EnableSsl = true;
+        //    smtp.Send(message);
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
-        public ActionResult DownloadListDebtors()
-        {
-            List<OrdersBooks> listDebtors = unitOfWork.OrderBookUoWRepository.GetAll().Where(i => i.Deadline < DateTime.Now).ToList();
+        //public ActionResult DownloadListDebtors()
+        //{
+        //    List<OrdersBooks> listDebtors = unitOfWork.OrderBookUoWRepository.GetAll().Where(i => i.Deadline < DateTime.Now).ToList();
 
-            StringBuilder sb = new StringBuilder();
-            string header = "№\t User\t Book\t Deadline";
-            sb.Append(header);
-            sb.Append("\r\n\r\n");
-            sb.Append('-', header.Length * 2);
-            sb.Append("\r\n\r\n");
-            foreach (var item in listDebtors)
-            {
-                sb.Append((listDebtors.IndexOf(item) + 1) + "\t " + item.UserId + "\t " + item.BookId + "\t " + item.Deadline.Date + "\r\n");
-            }
-            byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
+        //    StringBuilder sb = new StringBuilder();
+        //    string header = "№\t User\t Book\t Deadline";
+        //    sb.Append(header);
+        //    sb.Append("\r\n\r\n");
+        //    sb.Append('-', header.Length * 2);
+        //    sb.Append("\r\n\r\n");
+        //    foreach (var item in listDebtors)
+        //    {
+        //        sb.Append((listDebtors.IndexOf(item) + 1) + "\t " + item.UserId + "\t " + item.BookId + "\t " + item.Deadline.Date + "\r\n");
+        //    }
+        //    byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
 
-            string contentType = "text/plain";
-            return File(data, contentType, "listDebtors.txt");
-        }
+        //    string contentType = "text/plain";
+        //    return File(data, contentType, "listDebtors.txt");
+        //}
+
+        #endregion
+
+        #endregion
+
+        #region После разделения на слои
+
 
         #endregion
     }

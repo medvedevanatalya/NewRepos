@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using WebApplication2.Repositories;
+using DataLayer.Entities;
+using DataLayer.Repositories;
 
-namespace WebApplication2.UnitOfWork
+namespace DataLayer.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly Model1 db;
+        private readonly DbContext db;
         private bool disposed = false;
 
         Repository<Authors> authorUoWRepository;

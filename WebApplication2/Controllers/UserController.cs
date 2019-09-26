@@ -8,6 +8,8 @@ namespace WebApplication2.Controllers
 {
     public class UserController : Controller
     {
+        #region    До разделениия проекта на слои   
+
         #region        До добавления UnitOfWork
         //// GET: User
         //public ActionResult Index()
@@ -133,52 +135,58 @@ namespace WebApplication2.Controllers
         //}
         #endregion
 
-
-
         #region После добавления UnitOfWork
 
-        WebApplication2.UnitOfWork.UnitOfWork unitOfWork;
+        //WebApplication2.UnitOfWork.UnitOfWork unitOfWork;
 
-        public UserController()
-        {
-            unitOfWork = new UnitOfWork.UnitOfWork();
-        }
+        //public UserController()
+        //{
+        //    unitOfWork = new UnitOfWork.UnitOfWork();
+        //}
 
-        public ActionResult Index()
-        {
-            var model = unitOfWork.UserUoWRepository.GetAll();
-            return View(model);
-        }
+        //public ActionResult Index()
+        //{
+        //    var model = unitOfWork.UserUoWRepository.GetAll();
+        //    return View(model);
+        //}
 
-        public ActionResult CreateAndEdit(int? id)
-        {
-            Users model = unitOfWork.UserUoWRepository.Get(id);
-            return View(model);
-        }
+        //public ActionResult CreateAndEdit(int? id)
+        //{
+        //    Users model = unitOfWork.UserUoWRepository.Get(id);
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public ActionResult CreateAndEdit(Users user)
-        {
-            if (user.Id == 0)
-            {
-                unitOfWork.UserUoWRepository.Add(user);
-            }
-            else
-            {
-                unitOfWork.UserUoWRepository.Update(user);
-            }
-            unitOfWork.UserUoWRepository.Save();
+        //[HttpPost]
+        //public ActionResult CreateAndEdit(Users user)
+        //{
+        //    if (user.Id == 0)
+        //    {
+        //        unitOfWork.UserUoWRepository.Add(user);
+        //    }
+        //    else
+        //    {
+        //        unitOfWork.UserUoWRepository.Update(user);
+        //    }
+        //    unitOfWork.UserUoWRepository.Save();
 
-            return RedirectToActionPermanent("Index", "User");
-        }
+        //    return RedirectToActionPermanent("Index", "User");
+        //}
 
-        public ActionResult Delete(int id)
-        {
-            unitOfWork.UserUoWRepository.Delete(id);
-            unitOfWork.UserUoWRepository.Save();
+        //public ActionResult Delete(int id)
+        //{
+        //    unitOfWork.UserUoWRepository.Delete(id);
+        //    unitOfWork.UserUoWRepository.Save();
 
-            return RedirectToActionPermanent("Index", "User");
-        }
+        //    return RedirectToActionPermanent("Index", "User");
+        //}
+
+        #endregion
+
+        #endregion
+
+
+        #region После разделения на слои
+
 
         #endregion
     }

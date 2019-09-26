@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApplication2.Interfaces
+namespace DataLayer.Interfaces
 {
     public interface IRepository<T> where T : class
     {

@@ -1,16 +1,15 @@
-﻿@model WebApplication2.Authors
+﻿@model WebApplication2.ViewModels.AuthorViewModel
 
 @{
     ViewBag.Title = "CreateAndEdit";
 }
 
-<h2>CreateAndEdit</h2>
-
+<h2>@ViewBag.Header</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Authors</h4>
         <hr />
@@ -40,6 +39,7 @@
         </div>
     </div>
 }
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

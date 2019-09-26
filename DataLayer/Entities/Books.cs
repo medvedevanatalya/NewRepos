@@ -1,4 +1,4 @@
-namespace WebApplication2
+namespace DataLayer.Entities
 {
     using System;
     using System.Collections.Generic;

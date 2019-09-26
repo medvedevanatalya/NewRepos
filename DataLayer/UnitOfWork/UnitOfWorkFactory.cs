@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DataLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebApplication2.UnitOfWork
+namespace DataLayer.UnitOfWork
 {
     public class UnitOfWorkFactory
     {
@@ -12,10 +13,10 @@ namespace WebApplication2.UnitOfWork
             return new UnitOfWork(new Model1());
         }
 
-        public virtual IUnitOfWork CreateForOracle()
-        {
-            return new UnitOfWork(new Model1());
-        }
+        //public virtual IUnitOfWork CreateForOracle()
+        //{
+        //    return new UnitOfWork(new Model1());
+        //}
 
     }
 }

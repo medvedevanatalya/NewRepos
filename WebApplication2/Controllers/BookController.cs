@@ -8,6 +8,8 @@ namespace WebApplication2.Controllers
 {
     public class BookController : Controller
     {
+        #region    До разделениия проекта на слои
+
         #region        До добавления UnitOfWork
         //// GET: Book
         //public ActionResult Index()
@@ -115,54 +117,59 @@ namespace WebApplication2.Controllers
         //}
         #endregion
 
-
-
         #region После добавления UnitOfWork
 
-        WebApplication2.UnitOfWork.UnitOfWork unitOfWork;
-        public BookController()
-        {
-            unitOfWork = new UnitOfWork.UnitOfWork();
-        }
+        //WebApplication2.UnitOfWork.UnitOfWork unitOfWork;
+        //public BookController()
+        //{
+        //    unitOfWork = new UnitOfWork.UnitOfWork();
+        //}
 
-        public ActionResult Index()
-        {
-            var model = unitOfWork.BookUoWRepository.GetAll();
-            return View(model);
-        }
+        //public ActionResult Index()
+        //{
+        //    var model = unitOfWork.BookUoWRepository.GetAll();
+        //    return View(model);
+        //}
 
-        public ActionResult CreateAndEdit(int? id)
-        {
-            var authors = unitOfWork.AuthorUoWRepository.GetAll();
-            ViewBag.Authors = new SelectList(authors, "Id", "FirstName");
+        //public ActionResult CreateAndEdit(int? id)
+        //{
+        //    var authors = unitOfWork.AuthorUoWRepository.GetAll();
+        //    ViewBag.Authors = new SelectList(authors, "Id", "FirstName");
 
-            Books model = unitOfWork.BookUoWRepository.Get(id);
-            return View(model);
-        }
+        //    Books model = unitOfWork.BookUoWRepository.Get(id);
+        //    return View(model);
+        //}
 
-        [HttpPost]
-        public ActionResult CreateAndEdit(Books book)
-        {
-            if (book.Id == 0)
-            {
-                unitOfWork.BookUoWRepository.Add(book);
-            }
-            else
-            {
-                unitOfWork.BookUoWRepository.Update(book);
-            }
-            unitOfWork.BookUoWRepository.Save();
+        //[HttpPost]
+        //public ActionResult CreateAndEdit(Books book)
+        //{
+        //    if (book.Id == 0)
+        //    {
+        //        unitOfWork.BookUoWRepository.Add(book);
+        //    }
+        //    else
+        //    {
+        //        unitOfWork.BookUoWRepository.Update(book);
+        //    }
+        //    unitOfWork.BookUoWRepository.Save();
 
-            return RedirectToActionPermanent("Index", "Book");
-        }
+        //    return RedirectToActionPermanent("Index", "Book");
+        //}
 
-        public ActionResult Delete(int id)
-        {
-            unitOfWork.BookUoWRepository.Delete(id);
-            unitOfWork.BookUoWRepository.Save();
+        //public ActionResult Delete(int id)
+        //{
+        //    unitOfWork.BookUoWRepository.Delete(id);
+        //    unitOfWork.BookUoWRepository.Save();
 
-            return RedirectToActionPermanent("Index", "Book");
-        }
+        //    return RedirectToActionPermanent("Index", "Book");
+        //}
+
+        #endregion
+
+        #endregion
+
+
+        #region После разделения на слои
 
         #endregion
     }

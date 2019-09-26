@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Helpers
 {
     public static class MyHelpers
     {
-        public static MvcHtmlString TableShow(List<OrdersBooks> items, string nameCssClass)
+        public static MvcHtmlString TableShow(List<OrderBookViewModel> items, string nameCssClass)
         {  
             TagBuilder table = new TagBuilder("table"); 
             table.AddCssClass(nameCssClass);

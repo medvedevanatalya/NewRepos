@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using WebApplication2.Interfaces;
+using DataLayer.Entities;
+using DataLayer.Interfaces;
 
-namespace WebApplication2.Repositories
+namespace DataLayer.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly Model1 db = null;
+        private readonly DbContext db = null;
         private readonly DbSet<T> table = null;
 
         public Repository()
@@ -19,7 +19,7 @@ namespace WebApplication2.Repositories
             table = db.Set<T>();
         }
 
-        public Repository(Model1 db)
+        public Repository(DbContext db)
         {
             this.db = db;
             table = db.Set<T>();

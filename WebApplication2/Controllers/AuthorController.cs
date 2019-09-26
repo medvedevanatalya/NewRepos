@@ -1,13 +1,18 @@
-﻿using System;
+﻿using AutoMapper;
+using BussinessLayer.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
     public class AuthorController : Controller
     {
+        #region   До разделения на слои
+
         #region        До добавления UnitOfWork
         //    // GET: Author
         //    public ActionResult Index()
@@ -125,52 +130,139 @@ namespace WebApplication2.Controllers
         //    }
         #endregion
 
-
-
         #region После добавления UnitOfWork
 
-        WebApplication2.UnitOfWork.UnitOfWork unitOfWork;
-        public AuthorController()
+        //WebApplication2.UnitOfWork.UnitOfWork unitOfWork;
+        //public AuthorController()
+        //{
+        //    unitOfWork = new UnitOfWork.UnitOfWork();
+        //}
+
+        //public ActionResult Index()
+        //{
+        //    IEnumerable<Authors> model = unitOfWork.AuthorUoWRepository.GetAll();
+        //    return View(model);
+        //}
+
+        //public ActionResult CreateAndEdit(int? id)
+        //{
+        //    Authors model = unitOfWork.AuthorUoWRepository.Get(id);
+        //    return View(model);
+        //}
+
+        //[HttpPost]
+        //public ActionResult CreateAndEdit(Authors author)
+        //{
+        //    if (author.Id == 0)
+        //    {
+        //        unitOfWork.AuthorUoWRepository.Add(author);
+        //    }
+        //    else
+        //    {
+        //        unitOfWork.AuthorUoWRepository.Update(author);
+        //    }
+        //    unitOfWork.AuthorUoWRepository.Save();
+
+        //    return RedirectToActionPermanent("Index", "Author");
+        //}
+
+        //public ActionResult Delete(int id)
+        //{
+        //    unitOfWork.AuthorUoWRepository.Delete(id);
+        //    unitOfWork.AuthorUoWRepository.Save();
+
+        //    return RedirectToActionPermanent("Index", "Author");
+        //}
+
+        #endregion
+
+        #endregion
+
+       
+            #region После разделения на слои
+
+        protected IMapper mapper;
+
+        public AuthorController(IMapper mapper)
         {
-            unitOfWork = new UnitOfWork.UnitOfWork();
+            this.mapper = mapper;
         }
 
         public ActionResult Index()
         {
-            IEnumerable<Authors> model = unitOfWork.AuthorUoWRepository.GetAll();
-            return View(model);
+            var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
+            var authorList = authorBO.GetAuthorsList();
+            ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorViewModel>(m)).ToList();
+
+            List<AuthorViewModel> authorsTop = new List<AuthorViewModel>();
+            BookBO books = DependencyResolver.Current.GetService<BookBO>();
+            var expensiveBooks = books.GetBooksList().Select(item => mapper.Map<BookViewModel>(item))
+                                .OrderByDescending(b => b.Price).ToList();
+            //expensiveBooks.ForEach(x => authorsTop.Add(db.Authors.Where(a => a.Id == x).FirstOrDefault()));
+            foreach (var item in expensiveBooks)
+            {
+                authorsTop.Add(authorList.Select(a => mapper.Map<AuthorViewModel>(a))
+                    .Where(a => a.Id == item.AuthorId).FirstOrDefault());
+            }
+            ViewBag.Authors = authorList.Select(item => mapper.Map<AuthorViewModel>(item)).ToList();
+            ViewBag.ListAuthorsTop = authorsTop.Distinct().Take(5);
+
+            return View();
         }
 
         public ActionResult CreateAndEdit(int? id)
         {
-            Authors model = unitOfWork.AuthorUoWRepository.Get(id);
+            var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
+            var model = mapper.Map<AuthorViewModel>(authorBO);
+
+            if (id == null)
+            {
+                ViewBag.Header = "Создание автора";    
+            }
+            else
+            {
+                var authorBOList = authorBO.GetAuthorById(id);
+                model = mapper.Map<AuthorViewModel>(authorBOList);
+                ViewBag.Header = "Редактирование автора";     //message
+            }
+
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult CreateAndEdit(Authors author)
+        public ActionResult CreateAndEdit(AuthorViewModel model)
         {
-            if (author.Id == 0)
+            var authorBO = mapper.Map<AuthorBO>(model);
+            if (ModelState.IsValid)
             {
-                unitOfWork.AuthorUoWRepository.Add(author);
+                authorBO.Save();
+                return RedirectToActionPermanent("Index", "Author");
             }
             else
             {
-                unitOfWork.AuthorUoWRepository.Update(author);
+                return View(model);
             }
-            unitOfWork.AuthorUoWRepository.Save();
-
-            return RedirectToActionPermanent("Index", "Author");
         }
 
         public ActionResult Delete(int id)
         {
-            unitOfWork.AuthorUoWRepository.Delete(id);
-            unitOfWork.AuthorUoWRepository.Save();
+            var author = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorById(id);
+            author.Delete(id);
 
             return RedirectToActionPermanent("Index", "Author");
         }
 
+        public ActionResult _MyPartialView()
+        {
+            //var books = DependencyResolver.Current.GetService<BookBO>();
+            //var authors = DependencyResolver.Current.GetService<AuthorBO>();
+            //var expensiveBooks = books.GetBooksList().Select(item => mapper.Map<BookViewModel>(item))
+            //                    .OrderByDescending(b => b.Price).ToList();
+            //ViewBag.ExpBooks = expensiveBooks;
+            //ViewBag.Authors = authors.GetAuthorsList();
+
+            return PartialView();
+        }
         #endregion
     }
 }

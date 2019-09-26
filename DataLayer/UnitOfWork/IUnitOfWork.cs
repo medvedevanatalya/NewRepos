@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebApplication2.Repositories;
+using DataLayer.Entities;
+using DataLayer.Repositories;
 
-namespace WebApplication2.UnitOfWork
+namespace DataLayer.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
