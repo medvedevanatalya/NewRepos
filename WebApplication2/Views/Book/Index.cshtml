@@ -1,5 +1,4 @@
-﻿@model IEnumerable<WebApplication2.Books>
-@{
+﻿@{
     ViewBag.Title = "Книги";
 }
 
@@ -17,10 +16,16 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+
+        @{ 
+            List<WebApplication2.ViewModels.AuthorViewModel> authors = ViewBag.Authors;
+        }
+
+        @foreach (var item in ViewBag.Books)
         {
+            string authorName = authors.Where(a => a.Id == item.AuthorId).First().FirstName + " " + authors.Where(a => a.Id == item.AuthorId).First().LastName;
             <tr>
-                <td scope="row">@item.AuthorId</td>
+                <td scope="row">@authorName</td>
                 <td scope="row">@item.Title</td>
                 <td scope="row">@item.Pages</td>
                 <td scope="row">@item.Price</td>

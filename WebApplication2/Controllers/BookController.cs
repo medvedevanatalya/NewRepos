@@ -1,8 +1,11 @@
-﻿using System;
+﻿using AutoMapper;
+using BussinessLayer.BO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication2.ViewModels;
 
 namespace WebApplication2.Controllers
 {
@@ -171,6 +174,66 @@ namespace WebApplication2.Controllers
 
         #region После разделения на слои
 
+        protected IMapper mapper;
+
+        public BookController(IMapper mapper)
+        {
+            this.mapper = mapper;
+        }
+
+        public ActionResult Index()
+        {
+            var bookBO = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
+            //var bookList = bookBO.GetBooksList();
+            var authorBO = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
+            ViewBag.Books = bookBO.Select(m => mapper.Map<BookViewModel>(m)).ToList();
+            ViewBag.Authors = authorBO.Select(m=> mapper.Map<AuthorViewModel>(m)).ToList();
+            return View();
+        }
+
+        public ActionResult CreateAndEdit(int? id)
+        {
+            var bookBO = DependencyResolver.Current.GetService<BookBO>();
+            var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
+            var booksModel = mapper.Map<BookViewModel>(bookBO);
+
+            if (id == null)
+            {
+                ViewBag.Message = "Создание книги"; 
+            }
+            else
+            {
+                var bookBOList = bookBO.GetBookById(id);
+                booksModel = mapper.Map<BookViewModel>(bookBOList);
+                ViewBag.Message = "Редактирование книги";
+            }
+
+            ViewBag.Authors = new SelectList(authorBO.GetAuthorsList().Select(m => mapper.Map<AuthorViewModel>(m)).ToList(), "Id", "LastName");
+
+            return View(booksModel);
+        }
+
+        [HttpPost]
+        public ActionResult CreateAndEdit(BookViewModel booksModel)
+        {                                                
+            var bookBO = mapper.Map<BookBO>(booksModel);
+            if (ModelState.IsValid)
+            {
+                bookBO.Save();
+                return RedirectToActionPermanent("Index", "Book");
+            }
+            else
+            {
+                return View(booksModel);
+            }          
+        }
+        public ActionResult Delete(int id)
+        {
+            var book = DependencyResolver.Current.GetService<BookBO>().GetBookById(id);
+            book.Delete(id);
+
+            return RedirectToActionPermanent("Index", "Book");
+        }
         #endregion
     }
 }

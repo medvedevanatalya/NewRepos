@@ -179,7 +179,7 @@ namespace WebApplication2.Controllers
         #endregion
 
        
-            #region После разделения на слои
+        #region После разделения на слои
 
         protected IMapper mapper;
 
@@ -192,20 +192,20 @@ namespace WebApplication2.Controllers
         {
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
             var authorList = authorBO.GetAuthorsList();
-            ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorViewModel>(m)).ToList();
+            ViewBag.Authors = authorList.Select(a => mapper.Map<AuthorViewModel>(a)).ToList();
 
             List<AuthorViewModel> authorsTop = new List<AuthorViewModel>();
-            BookBO books = DependencyResolver.Current.GetService<BookBO>();
-            var expensiveBooks = books.GetBooksList().Select(item => mapper.Map<BookViewModel>(item))
-                                .OrderByDescending(b => b.Price).ToList();
-            //expensiveBooks.ForEach(x => authorsTop.Add(db.Authors.Where(a => a.Id == x).FirstOrDefault()));
-            foreach (var item in expensiveBooks)
-            {
-                authorsTop.Add(authorList.Select(a => mapper.Map<AuthorViewModel>(a))
-                    .Where(a => a.Id == item.AuthorId).FirstOrDefault());
-            }
-            ViewBag.Authors = authorList.Select(item => mapper.Map<AuthorViewModel>(item)).ToList();
-            ViewBag.ListAuthorsTop = authorsTop.Distinct().Take(5);
+            BookBO booksBO = DependencyResolver.Current.GetService<BookBO>(); 
+
+            //топ 5 авторов
+            var expensiveBooks = booksBO.GetBooksList().OrderByDescending(b => b.Price).Select(x => mapper.Map<BookViewModel>(x)).ToList();
+
+            expensiveBooks.ForEach(
+                x =>
+                {
+                    authorsTop.Add(authorList.Select(m=>mapper.Map<AuthorViewModel>(m)).Where(a => a.Id == x.AuthorId).FirstOrDefault());
+                });
+            ViewBag.ListTopAuthors = authorsTop.Distinct().Take(5);       
 
             return View();
         }
@@ -213,7 +213,7 @@ namespace WebApplication2.Controllers
         public ActionResult CreateAndEdit(int? id)
         {
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
-            var model = mapper.Map<AuthorViewModel>(authorBO);
+            var authorsModel = mapper.Map<AuthorViewModel>(authorBO);
 
             if (id == null)
             {
@@ -222,17 +222,17 @@ namespace WebApplication2.Controllers
             else
             {
                 var authorBOList = authorBO.GetAuthorById(id);
-                model = mapper.Map<AuthorViewModel>(authorBOList);
-                ViewBag.Header = "Редактирование автора";     //message
+                authorsModel = mapper.Map<AuthorViewModel>(authorBOList);
+                ViewBag.Header = "Редактирование автора"; 
             }
 
-            return View(model);
+            return View(authorsModel);
         }
 
         [HttpPost]
-        public ActionResult CreateAndEdit(AuthorViewModel model)
+        public ActionResult CreateAndEdit(AuthorViewModel authorsModel)
         {
-            var authorBO = mapper.Map<AuthorBO>(model);
+            var authorBO = mapper.Map<AuthorBO>(authorsModel);
             if (ModelState.IsValid)
             {
                 authorBO.Save();
@@ -240,7 +240,7 @@ namespace WebApplication2.Controllers
             }
             else
             {
-                return View(model);
+                return View(authorsModel);
             }
         }
 
@@ -253,14 +253,7 @@ namespace WebApplication2.Controllers
         }
 
         public ActionResult _MyPartialView()
-        {
-            //var books = DependencyResolver.Current.GetService<BookBO>();
-            //var authors = DependencyResolver.Current.GetService<AuthorBO>();
-            //var expensiveBooks = books.GetBooksList().Select(item => mapper.Map<BookViewModel>(item))
-            //                    .OrderByDescending(b => b.Price).ToList();
-            //ViewBag.ExpBooks = expensiveBooks;
-            //ViewBag.Authors = authors.GetAuthorsList();
-
+        {         
             return PartialView();
         }
         #endregion

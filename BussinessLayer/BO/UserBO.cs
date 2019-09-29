@@ -16,7 +16,7 @@ namespace BussinessLayer.BO
 
         public int Id { get; set; }
         public string FIO { get; set; }
-        public string Email { get; set; }
+        public string EmailUser { get; set; }
 
         public UserBO(IMapper mapper, UnitOfWorkFactory unitOfWorkFactory, IUnityContainer unityContainer)
             : base(mapper, unitOfWorkFactory)

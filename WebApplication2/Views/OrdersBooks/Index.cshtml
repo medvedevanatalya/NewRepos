@@ -1,5 +1,4 @@
-﻿@model IEnumerable<WebApplication2.OrdersBooks>
-
+﻿
 @{
     ViewBag.Title = "Заказы книг";
 }
@@ -8,7 +7,7 @@
 
 @Html.ActionLink("Создать заказ", "CreateAndEdit", "OrdersBooks")    |
 
-@Html.ActionLink("Скачать список должников", "DownloadListDebtors")
+@Html.ActionLink("Скачать список должников", "DownloadListDebtors", "OrdersBooks")
 
 
 @*@MyHelpers.TableShow(Model, "table table-striped")*@
@@ -26,26 +25,35 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @{ 
+            List<WebApplication2.ViewModels.UserViewModel> users = ViewBag.Users;
+            List<WebApplication2.ViewModels.BookViewModel> books = ViewBag.Books;
+        }
+
+        @foreach (var item in ViewBag.OrdersBooks)
         {
-            <tr>
-                <td scope="row">@item.Id</td>
-                <td scope="row">@item.UserId</td>
-                <td scope="row">@item.BookId</td>
-
-                <td scope="row">@item.CurentDate</td>
-                <td scope="row">@item.Deadline</td>
-                <td scope="row">@item.ActualReturnDate</td>
-
-                <td scope="row">@Html.ActionLink("Редактировать заказ", "CreateAndEdit", "OrdersBooks", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Удалить заказ", "Delete", "OrdersBooks", new { id = @item.Id }, null)</td>
-
-
-                @if (DateTime.Now > @item.Deadline)
-                {
-                    <td scope="row">@Html.ActionLink("Отправить уведомление", "SendNotification", new { id = @item.UserId }, null)</td>
-                }
-
-            </tr>
+            string userName = users.Where(u => u.Id == item.UserId).First().FIO;
+            string bookTitle = books.Where(b => b.Id == item.BookId).First().Title;
+        <tr>
+            <td scope="row">@item.Id</td>
+            <td scope="row">@userName</td>
+            <td scope="row">@bookTitle</td>
+            <td scope="row">@item.CurentDate.ToShortDateString()</td>
+            <td scope="row">@item.Deadline.ToShortDateString()</td>
+            @if (@item.ActualReturnDate != @item.CurentDate)
+            {
+                <td scope="row">@item.ActualReturnDate.ToShortDateString()</td>
+            }  
+            else if (@item.ActualReturnDate == @item.CurentDate && @item.Deadline < DateTime.Now)
+            {
+                <td scope="row">Просрочено | <br />@Html.ActionLink("Отправить уведомление", "SendNotification", new { id = @item.UserId }, null)</td>
+            }
+            else
+            {
+                <td scope="row"></td>
+            }
+            <td scope="row">@Html.ActionLink("Редактировать заказ", "CreateAndEdit", "OrdersBooks", new { id = @item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Удалить заказ", "Delete", "OrdersBooks", new { id = @item.Id }, null)</td>
+        </tr>
         }
 </table>

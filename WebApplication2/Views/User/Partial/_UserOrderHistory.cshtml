@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    List<WebApplication2.ViewModels.BookViewModel> books = ViewBag.Books;
+}
 
 <h2>История заказов пользователя, последние 5 записей</h2>
 
@@ -6,21 +8,26 @@
     <thead>
         <tr>
             <th scope="col">Номер заказа</th>
-            <th scope="col">Пользователь</th>
             <th scope="col">Книга</th>
-
+            <th scope="col">Цена</th>
             <th scope="col">Дата заказа</th>
             <th scope="col">Срок сдачи</th>
             <th scope="col">Дата возврата</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in @ViewBag.UserOrderHistory)
+
+        @foreach (var item in ViewBag.UserOrderHistory)
         {
+            WebApplication2.ViewModels.BookViewModel book = books.Where(b => b.Id == item.BookId).FirstOrDefault();
+
+            string bookTitle = book.Title;
+            int bookPrice = (int)book.Price;
+
             <tr>
                 <td scope="row">@item.Id</td>
-                <td scope="row">@item.UserId</td>
-                <td scope="row">@item.BookId</td>
+                <td scope="row">@bookTitle</td>
+                <td scope="row">@bookPrice</td>
 
                 <td scope="row">@item.CurentDate</td>
                 <td scope="row">@item.Deadline</td>

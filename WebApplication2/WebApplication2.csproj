@@ -244,7 +244,7 @@
     <Content Include="Views\Book\Index.cshtml" />
     <Content Include="Views\OrdersBooks\Index.cshtml" />
     <Content Include="Views\Author\Partial\_MyPartialView.cshtml" />
-    <Content Include="Views\User\Partial\_UserStory.cshtml" />
+    <Content Include="Views\User\Partial\_UserOrderHistory.cshtml" />
     <Content Include="Views\Author\CreateAndEdit.cshtml" />
     <Content Include="Views\Book\CreateAndEdit.cshtml" />
     <Content Include="Views\OrdersBooks\CreateAndEdit.cshtml" />
