@@ -287,6 +287,7 @@ namespace WebApplication2.Controllers
         #endregion
 
         #region После разделения на слои
+
         protected IMapper mapper;
 
         public OrdersBooksController(IMapper mapper)
@@ -379,71 +380,30 @@ namespace WebApplication2.Controllers
             return RedirectToActionPermanent("Index", "OrdersBooks");
         }
 
-        public ActionResult DownloadListDebtors()
-        {
+        //public ActionResult DownloadListDebtors()
+        //{
+            //var listDebtorsBO = DependencyResolver.Current.GetService<OrderBookBO>().GetOrdersBooksList().Where(i => i.Deadline < DateTime.Now).ToList(); ;
+            //var listDebtors = mapper.Map<OrderBookViewModel>(listDebtorsBO);
+            //List<OrdersBooks> listDebtors = unitOfWork.OrderBookUoWRepository.GetAll().Where(i => i.Deadline < DateTime.Now).ToList();
 
-            var orderBO = DependencyResolver.Current.GetService<OrderBookBO>().GetOrdersBooksList();
-            var listDebtors = orderBO.Select(m => mapper.Map<OrderBookViewModel>(m)).Where(i => i.Deadline < DateTime.Now && i.ActualReturnDate == i.CurentDate).ToList();
-            StringBuilder sb = new StringBuilder();
-            string header = "№\t User\t Book\t Deadline";
-            sb.Append(header);
-            sb.Append("\r\n\r\n");
-            sb.Append('-', header.Length * 2);
-            sb.Append("\r\n\r\n");
-            foreach (var item in listDebtors)
-            {
-                sb.Append((listDebtors.IndexOf(item) + 1) + "\t " + item.UserId + "\t " + item.BookId + "\t " + item.Deadline.Date + "\r\n");
-            }
-            byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
-
-            string contentType = "text/plain";
-            return File(data, contentType, "listDebtors.txt");
-
-
-            //List<OrderBookViewModel> deadlines = new List<OrderBookViewModel>();
-
-            //var orderBO = DependencyResolver.Current.GetService<OrderBookBO>().GetOrdersBooksList();
-            //var userBO = DependencyResolver.Current.GetService<UserBO>();
-
-            //var links = orderBO.Select(m => mapper.Map<OrderBookViewModel>(m)).Where(o => o.CurentDate == o.ActualReturnDate && DateTime.Today > o.Deadline).ToList();
-            //string path = @"C:\Test\deadline.txt";
-
-            //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            //StringBuilder sb = new StringBuilder();
+            //string header = "№\t User\t Book\t Deadline";
+            //sb.Append(header);
+            //sb.Append("\r\n\r\n");
+            //sb.Append('-', header.Length * 2);
+            //sb.Append("\r\n\r\n");
+            //foreach (var item in listDebtors)
             //{
-            //    using (StreamWriter sw = new StreamWriter(fs, Encoding.Unicode))
-            //    {
-            //        foreach (var item in deadlines)
-            //        {
-            //            var user = mapper.Map<UserViewModel>(userBO.GetUserById(item.UserId));
-            //            string fio = user.FIO;
-            //            sw.WriteLine($"User: {fio}   CurentDate: {item.CurentDate}  Deadline: {item.Deadline}");
-            //        }
-            //    }
+            //    sb.Append((listDebtors.IndexOf(item) + 1) + "\t " + item.UserId + "\t " + item.BookId + "\t " + item.Deadline.Date + "\r\n");
             //}
+            //byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
 
-            #region MemoryStream
-            //    //byte[] data = new byte[5000];
-            //    //MemoryStream ms = new MemoryStream(data);
-            //    //StreamWriter sw = new StreamWriter(ms);
+            //string contentType = "text/plain";
+            //return File(data, contentType, "listDebtors.txt");  
+        //}
 
-            //    //foreach (var item in links)
-            //    //    if (item.Deadline < DateTime.Now)
-            //    //    {
-            //    //        string fio = db.Users.Where(u => u.Id == item.UserId).FirstOrDefault().FIO;
-            //    //        sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Deadline: {item.Deadline}");
-            //    //    }
-            //    //sw.Flush();
-            //    //sw.Close();
-            //    ////sr.Close();
-            //    //string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //    //FileStream file = new FileStream($@"{dir}\test.txt", FileMode.OpenOrCreate);
-            //    //ms.CopyTo(file);
-            //    ////return File(ms, "text/plain");
-            #endregion
 
-            //return RedirectToActionPermanent("Index", "OrdersBooks");
+        #endregion
 
-            #endregion
-        }
     }
 }

@@ -18,16 +18,13 @@ namespace BussinessLayer.BO
         public int Id { get; set; }
         public virtual int? UserId { get; set; }
         public virtual int? BookId { get; set; }
-
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime CurentDate { get; set; }
-
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Deadline { get; set; }
-
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ActualReturnDate { get; set; }
 
@@ -77,6 +74,7 @@ namespace BussinessLayer.BO
             //order.CurentDate = this.CurentDate;
             //order.Deadline = this.Deadline;
             var order = mapper.Map<OrdersBooks>(unitOfWork.OrderBookUoWRepository.Get(this.Id));
+            order.ActualReturnDate = this.ActualReturnDate;
             unitOfWork.OrderBookUoWRepository.Update(order);
             unitOfWork.Save();
         }

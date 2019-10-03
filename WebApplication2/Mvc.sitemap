@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="Главная" controller="Home" action="Index">
+    <mvcSiteMapNode title="Index" controller="Home" action="Index"/>
+    <mvcSiteMapNode title="About" controller="Home" action="About"/>
+    <mvcSiteMapNode title="Contact" controller="Home" action="Contact"/>
+
+
+    <mvcSiteMapNode title="Авторы" controller="Author" action="Index">
+      <mvcSiteMapNode title="Создание/Редактирование автора" controller="Author" action="CreateAndEdit"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Книги" controller="Book" action="Index">
+      <mvcSiteMapNode title="Создание/Редактирование книги" controller="Book" action="CreateAndEdit"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Заказы книг" controller="OrdersBooks" action="Index">
+      <mvcSiteMapNode title="Создание/Редактирование заказа книг" controller="OrdersBooks" action="CreateAndEdit"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Пользователи" controller="User" action="Index">
+      <mvcSiteMapNode title="Создание/Редактирование пользователей" controller="User" action="CreateAndEdit"/>
+    </mvcSiteMapNode>
+    
+  </mvcSiteMapNode>
+
+</mvcSiteMap>
