@@ -69,10 +69,7 @@ namespace BussinessLayer.BO
         }
 
         void Update(IUnitOfWork unitOfWork)
-        {
-            //var order = mapper.Map<OrdersBooks>(this);
-            //order.CurentDate = this.CurentDate;
-            //order.Deadline = this.Deadline;
+        { 
             var order = mapper.Map<OrdersBooks>(unitOfWork.OrderBookUoWRepository.Get(this.Id));
             order.ActualReturnDate = this.ActualReturnDate;
             unitOfWork.OrderBookUoWRepository.Update(order);
