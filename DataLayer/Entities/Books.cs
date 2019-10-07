@@ -24,5 +24,8 @@ namespace DataLayer.Entities
 
         //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         //public virtual ICollection<UsersAndBooks> UsersAndBooks { get; set; }
+
+        public int GenreBookId { get; set; }
+        public virtual GenresBooks GenresBooks { get; set; }
     }
 }

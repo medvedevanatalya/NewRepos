@@ -184,10 +184,13 @@ namespace WebApplication2.Controllers
         public ActionResult Index()
         {
             var bookBO = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
-            //var bookList = bookBO.GetBooksList();
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
+            var genreBookBO = DependencyResolver.Current.GetService<GenreBookBO>().GetGenresBooksList();
+
             ViewBag.Books = bookBO.Select(m => mapper.Map<BookViewModel>(m)).ToList();
             ViewBag.Authors = authorBO.Select(m=> mapper.Map<AuthorViewModel>(m)).ToList();
+            ViewBag.GenresBooks = genreBookBO.Select(m=> mapper.Map<GenreBookViewModel>(m)).ToList();
+
             return View();
         }
 
@@ -195,20 +198,23 @@ namespace WebApplication2.Controllers
         {
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
+            var genreBookBO = DependencyResolver.Current.GetService<GenreBookBO>();
+
             var booksModel = mapper.Map<BookViewModel>(bookBO);
 
             if (id == null)
             {
-                ViewBag.Message = "Создание книги"; 
+                ViewBag.Header = "Создание книги"; 
             }
             else
             {
                 var bookBOList = bookBO.GetBookById(id);
                 booksModel = mapper.Map<BookViewModel>(bookBOList);
-                ViewBag.Message = "Редактирование книги";
+                ViewBag.Header = "Редактирование книги";
             }
 
             ViewBag.Authors = new SelectList(authorBO.GetAuthorsList().Select(m => mapper.Map<AuthorViewModel>(m)).ToList(), "Id", "LastName");
+            ViewBag.GenresBooks = new SelectList(genreBookBO.GetGenresBooksList().Select(m => mapper.Map<GenreBookViewModel>(m)).ToList(), "Id", "NameGenre");
 
             return View(booksModel);
         }
@@ -227,6 +233,7 @@ namespace WebApplication2.Controllers
                 return View(booksModel);
             }          
         }
+
         public ActionResult Delete(int id)
         {
             var book = DependencyResolver.Current.GetService<BookBO>().GetBookById(id);

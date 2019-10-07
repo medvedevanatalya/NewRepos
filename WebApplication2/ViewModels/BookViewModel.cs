@@ -13,9 +13,9 @@ namespace WebApplication2.ViewModels
         [Display(Name = "Автор")]
         public int AuthorId { get; set; }
 
-        [Required(ErrorMessage = "Поле Название обязательно к заполнению")]
+        [Required(ErrorMessage = "Поле Название книги обязательно к заполнению")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Длина строки не менее 2-х символов и не более 100")]
-        [Display(Name = "Название")] 
+        [Display(Name = "Название книги")] 
         public string Title { get; set; }
         
         [Range(0, 1000, ErrorMessage = "Недопустимое количество страниц")]
@@ -25,5 +25,8 @@ namespace WebApplication2.ViewModels
         [Range(0, 50000, ErrorMessage = "Недопустимая цена")]
         [Display(Name = "Цена")]
         public int? Price { get; set; }
+
+        [Display(Name = "Жанр")]
+        public int GenreBookId { get; set; } 
     }
 }

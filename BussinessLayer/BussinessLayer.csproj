@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="BO\AuthorBO.cs" />
     <Compile Include="BO\BookBO.cs" />
+    <Compile Include="BO\GenreBookBO.cs" />
     <Compile Include="BO\OrderBookBO.cs" />
     <Compile Include="BO\UserBO.cs" />
     <Compile Include="BussinessObjectBase.cs" />

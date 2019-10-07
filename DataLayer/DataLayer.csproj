@@ -53,6 +53,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Entities\Authors.cs" />
     <Compile Include="Entities\Books.cs" />
+    <Compile Include="Entities\GenresBooks.cs" />
     <Compile Include="Entities\Model1.cs" />
     <Compile Include="Entities\OrdersBooks.cs" />
     <Compile Include="Entities\Users.cs" />
@@ -73,6 +74,10 @@
     <Compile Include="Migrations\201909251414316_update.Designer.cs">
       <DependentUpon>201909251414316_update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910061434262_CreateTableGenresBooks.cs" />
+    <Compile Include="Migrations\201910061434262_CreateTableGenresBooks.Designer.cs">
+      <DependentUpon>201910061434262_CreateTableGenresBooks.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Repository.cs" />
@@ -92,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909251414316_update.resx">
       <DependentUpon>201909251414316_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910061434262_CreateTableGenresBooks.resx">
+      <DependentUpon>201910061434262_CreateTableGenresBooks.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

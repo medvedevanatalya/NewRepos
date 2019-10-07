@@ -14,6 +14,7 @@ namespace DataLayer.UnitOfWork
         Repository<Books> BookUoWRepository { get; }
         Repository<OrdersBooks> OrderBookUoWRepository { get; }
         Repository<Users> UserUoWRepository { get; }
+        Repository<GenresBooks> GenreBookUoWRepository { get; }
 
         void Save();
         void BeginTransaction();

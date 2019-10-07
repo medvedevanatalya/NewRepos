@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Жанры";
+}
+
+<h2>Жанры</h2>
+
+@Html.ActionLink("Создать жанр", "CreateAndEdit", "GenreBook")
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Название жанра</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in ViewBag.GenresBooks)
+        {
+            <tr>
+                <td scope="row">@item.NameGenre</td>
+                <td scope="row">@Html.ActionLink("Редактировать жанр", "CreateAndEdit", "GenreBook", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Удалить жанр", "Delete", "GenreBook", new { id = @item.Id }, null)</td>
+            </tr>
+        }
+</table>
+

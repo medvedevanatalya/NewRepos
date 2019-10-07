@@ -6,27 +6,32 @@
 
 @Html.ActionLink("Создать Книгу", "CreateAndEdit", "Book")
 
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th scope="col">Автор</th>
             <th scope="col">Наименование книги</th>
+            <th scope="col">Жанр</th>
             <th scope="col">Количество страниц</th>
             <th scope="col">Цена</th>
         </tr>
     </thead>
     <tbody>
 
-        @{ 
+        @{
             List<WebApplication2.ViewModels.AuthorViewModel> authors = ViewBag.Authors;
+            List<WebApplication2.ViewModels.GenreBookViewModel> genres = ViewBag.GenresBooks;
         }
 
         @foreach (var item in ViewBag.Books)
         {
             string authorName = authors.Where(a => a.Id == item.AuthorId).First().FirstName + " " + authors.Where(a => a.Id == item.AuthorId).First().LastName;
+            string genreName = genres.Where(a => a.Id == item.GenreBookId).First().NameGenre;
             <tr>
                 <td scope="row">@authorName</td>
                 <td scope="row">@item.Title</td>
+                <td scope="row">@genreName</td>
                 <td scope="row">@item.Pages</td>
                 <td scope="row">@item.Price</td>
                 <td scope="row">@Html.ActionLink("Редактировать книгу", "CreateAndEdit", "Book", new { id = @item.Id }, null)</td>

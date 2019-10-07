@@ -10,56 +10,52 @@ using Unity;
 
 namespace BussinessLayer.BO
 {
-    public class BookBO : BusinessObjectBase
+    public class GenreBookBO : BusinessObjectBase
     {
         private readonly IUnityContainer unityContainer;
 
         public int Id { get; set; }
-        public int AuthorId { get; set; }
-        public string Title { get; set; }
-        public int? Pages { get; set; }
-        public int? Price { get; set; }
-        public int GenreBookId { get; set; }
+        public string NameGenre { get; set; }
 
-        public BookBO(IMapper mapper, UnitOfWorkFactory unitOfWorkFactory, IUnityContainer unityContainer)
-            : base(mapper, unitOfWorkFactory)
+        public GenreBookBO(IMapper mapper, UnitOfWorkFactory unitOfWorkFactory, IUnityContainer unityContainer)
+           : base(mapper, unitOfWorkFactory)
         {
             this.unityContainer = unityContainer;
         }
 
-        public BookBO GetBookById(int? id)
+        public GenreBookBO GetGenreBookById(int? id)
         {
-            BookBO book;
+            GenreBookBO book;
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                book = unitOfWork.BookUoWRepository.GetAll().Where(a => a.Id == id).Select(item => mapper.Map<BookBO>(item)).FirstOrDefault();
+                book = unitOfWork.GenreBookUoWRepository.GetAll().Where(a => a.Id == id).Select(item => mapper.Map<GenreBookBO>(item)).FirstOrDefault();
             }
             return book;
         }
 
-        public List<BookBO> GetBooksList()
+        public List<GenreBookBO> GetGenresBooksList()
         {
-            List<BookBO> books = new List<BookBO>();
+            List<GenreBookBO> genresBooks = new List<GenreBookBO>();
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                books = unitOfWork.BookUoWRepository.GetAll().Select(item => mapper.Map<BookBO>(item)).ToList();
+                genresBooks = unitOfWork.GenreBookUoWRepository.GetAll().Select(item => mapper.Map<GenreBookBO>(item)).ToList();
             }
-            return books;
+            return genresBooks;
         }
 
         void Add(IUnitOfWork unitOfWork)
         {
-            var book = mapper.Map<Books>(this);
-            unitOfWork.BookUoWRepository.Add(book);
+            var genreBook = mapper.Map<GenresBooks>(this);
+            unitOfWork.GenreBookUoWRepository.Add(genreBook);
             unitOfWork.Save();
         }
 
         void Update(IUnitOfWork unitOfWork)
         {
-            var book = mapper.Map<Books>(this);
-            unitOfWork.BookUoWRepository.Update(book);
+            var genreBook = mapper.Map<GenresBooks>(this);
+            unitOfWork.GenreBookUoWRepository.Update(genreBook);
             unitOfWork.Save();
         }
 
@@ -77,12 +73,12 @@ namespace BussinessLayer.BO
                 }
             }
         }
-           
+
         public void Delete(int id)
         {
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                unitOfWork.BookUoWRepository.Delete(id);
+                unitOfWork.GenreBookUoWRepository.Delete(id);
                 unitOfWork.Save();
             }
         }

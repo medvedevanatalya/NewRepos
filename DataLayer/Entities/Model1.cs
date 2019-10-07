@@ -17,6 +17,7 @@ namespace DataLayer.Entities
         public virtual DbSet<Books> Books { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<OrdersBooks> OrdersBooks { get; set; }
+        public virtual DbSet<GenresBooks> GenresBooks { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

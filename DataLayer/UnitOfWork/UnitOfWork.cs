@@ -17,6 +17,7 @@ namespace DataLayer.UnitOfWork
         Repository<Books> bookUoWRepository;
         Repository<OrdersBooks> orderBookUoWRepository;
         Repository<Users> userUoWRepository;
+        Repository<GenresBooks> genreBookUoWRepository;
 
         public Repository<Authors> AuthorUoWRepository
         {
@@ -47,6 +48,14 @@ namespace DataLayer.UnitOfWork
             get
             {
                 return userUoWRepository == null ? new Repository<Users>(db) : userUoWRepository;
+            }
+        }
+
+        public Repository<GenresBooks> GenreBookUoWRepository
+        {
+            get
+            {
+                return genreBookUoWRepository == null ? new Repository<GenresBooks>(db) : genreBookUoWRepository;
             }
         }
 

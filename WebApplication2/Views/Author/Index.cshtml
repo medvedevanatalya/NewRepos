@@ -7,22 +7,23 @@
 @Html.ActionLink("Создать автора", "CreateAndEdit", "Author")
 
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">Имя</th>
-            <th scope="col">Фамилия</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in ViewBag.Authors)
-        {
+        <thead>
             <tr>
-                <td scope="row">@item.FirstName</td>
-                <td scope="row">@item.LastName</td>
-                <td scope="row">@Html.ActionLink("Редактировать автора", "CreateAndEdit", "Author", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Удалить автора", "Delete", "Author", new { id = @item.Id }, null)</td>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Authors)
+            {
+                <tr>
+                    <td scope="row">@item.FirstName</td>
+                    <td scope="row">@item.LastName</td>
+                    <td scope="row">@Html.ActionLink("Редактировать автора", "CreateAndEdit", "Author", new { id = @item.Id }, null)</td>
+                    <td scope="row">@Html.ActionLink("Удалить автора", "Delete", "Author", new { id = @item.Id }, null)</td>
+                </tr>
+            }
 </table>
+
 
 @Html.Partial("Partial/_MyPartialView", @ViewBag.ListTopAuthors as List<WebApplication2.ViewModels.AuthorViewModel>)
