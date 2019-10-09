@@ -178,8 +178,8 @@ namespace WebApplication2.Controllers
 
         #endregion
 
-       
-        #region После разделения на слои
+
+        #region После разделения на слои   
 
         protected IMapper mapper;
 
@@ -189,9 +189,9 @@ namespace WebApplication2.Controllers
         }
 
         public ActionResult Index()
-        {
+        {   
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
-            var authorList = authorBO.GetAuthorsList();
+            var authorList = authorBO.GetAuthorsList().OrderBy(n => n.LastName); //сортировка по фамилии в алфавитном порядке 
             ViewBag.Authors = authorList.Select(a => mapper.Map<AuthorViewModel>(a)).ToList();
 
             List<AuthorViewModel> authorsTop = new List<AuthorViewModel>();
