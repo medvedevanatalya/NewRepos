@@ -77,6 +77,10 @@
     <Compile Include="Migrations\201910061434262_CreateTableGenresBooks.Designer.cs">
       <DependentUpon>201910061434262_CreateTableGenresBooks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910191325311_AddColumnImages.cs" />
+    <Compile Include="Migrations\201910191325311_AddColumnImages.Designer.cs">
+      <DependentUpon>201910191325311_AddColumnImages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910061434262_CreateTableGenresBooks.resx">
       <DependentUpon>201910061434262_CreateTableGenresBooks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910191325311_AddColumnImages.resx">
+      <DependentUpon>201910191325311_AddColumnImages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

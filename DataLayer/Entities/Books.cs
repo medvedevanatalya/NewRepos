@@ -22,10 +22,10 @@ namespace DataLayer.Entities
 
         public virtual Authors Authors { get; set; }
 
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        //public virtual ICollection<UsersAndBooks> UsersAndBooks { get; set; }
-
         public int GenreBookId { get; set; }
         public virtual GenresBooks GenresBooks { get; set; }
+
+        public byte[] ImageData { get; set; }
+        public string ImageMimeType { get; set; }
     }
 }

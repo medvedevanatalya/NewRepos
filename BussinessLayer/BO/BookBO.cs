@@ -20,6 +20,8 @@ namespace BussinessLayer.BO
         public int? Pages { get; set; }
         public int? Price { get; set; }
         public int GenreBookId { get; set; }
+        public byte[] ImageData { get; set; }
+        public string ImageMimeType { get; set; }
 
         public BookBO(IMapper mapper, UnitOfWorkFactory unitOfWorkFactory, IUnityContainer unityContainer)
             : base(mapper, unitOfWorkFactory)
@@ -58,7 +60,7 @@ namespace BussinessLayer.BO
 
         void Update(IUnitOfWork unitOfWork)
         {
-            var book = mapper.Map<Books>(this);
+            var book = mapper.Map<Books>(this);      
             unitOfWork.BookUoWRepository.Update(book);
             unitOfWork.Save();
         }

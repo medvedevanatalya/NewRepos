@@ -186,7 +186,13 @@ namespace WebApplication2.Controllers
             var bookBO = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
             var genreBookBO = DependencyResolver.Current.GetService<GenreBookBO>().GetGenresBooksList();
-
+            //foreach (var item in bookBO)
+            //{
+            //    if (item.ImageMimeType != null)
+            //    {
+            //        GetImage(item.Id);
+            //    }
+            //}
             ViewBag.Books = bookBO.Select(m => mapper.Map<BookViewModel>(m)).ToList();
             ViewBag.Authors = authorBO.Select(m=> mapper.Map<AuthorViewModel>(m)).ToList();
             ViewBag.GenresBooks = genreBookBO.Select(m=> mapper.Map<GenreBookViewModel>(m)).ToList();
@@ -220,11 +226,17 @@ namespace WebApplication2.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateAndEdit(BookViewModel booksModel)
+        public ActionResult CreateAndEdit(BookViewModel booksModel, HttpPostedFileBase image)
         {                                                
             var bookBO = mapper.Map<BookBO>(booksModel);
             if (ModelState.IsValid)
             {
+                if(image != null)
+                {
+                    bookBO.ImageMimeType = image.ContentType;
+                    bookBO.ImageData = new byte[image.ContentLength];
+                    image.InputStream.Read(bookBO.ImageData, 0, image.ContentLength);
+                }
                 bookBO.Save();
                 return RedirectToActionPermanent("Index", "Book");
             }
@@ -240,6 +252,20 @@ namespace WebApplication2.Controllers
             book.Delete(id);
 
             return RedirectToActionPermanent("Index", "Book");
+        }
+
+        public FileContentResult GetImage(int bookId)
+        {
+            var book = DependencyResolver.Current.GetService<BookBO>().GetBookById(bookId);
+
+            if (book != null)
+            {
+                return File(book.ImageData, book.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            } 
         }
         #endregion
     }

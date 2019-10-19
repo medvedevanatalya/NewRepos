@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace WebApplication2.ViewModels
 {
@@ -27,6 +28,12 @@ namespace WebApplication2.ViewModels
         public int? Price { get; set; }
 
         [Display(Name = "Жанр")]
-        public int GenreBookId { get; set; } 
+        public int GenreBookId { get; set; }
+
+        [Display(Name = "Изображение")]
+        public byte[] ImageData { get; set; }
+
+        [HiddenInput(DisplayValue = false)]
+        public string ImageMimeType { get; set; }
     }
 }
