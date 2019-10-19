@@ -297,7 +297,7 @@ namespace WebApplication2.Controllers
 
         public ActionResult Index()
         {
-            var orderBookBO = DependencyResolver.Current.GetService<OrderBookBO>().GetOrdersBooksList();
+            var orderBookBO = DependencyResolver.Current.GetService<OrderBookBO>().GetOrdersBooksList().OrderBy(o=>o.CurentDate);
             var userBO = DependencyResolver.Current.GetService<UserBO>().GetUsersList();
             var bookBO = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
 
