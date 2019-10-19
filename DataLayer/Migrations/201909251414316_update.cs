@@ -7,13 +7,13 @@ namespace DataLayer.Migrations
     {
         public override void Up()
         {
-            DropForeignKey("dbo.Genres", "Books_Id", "dbo.Books");
-            DropIndex("dbo.Genres", new[] { "Books_Id" });
-            AlterColumn("dbo.Authors", "FirstName", c => c.String(maxLength: 100, unicode: false));
-            AlterColumn("dbo.Authors", "LastName", c => c.String(maxLength: 100, unicode: false));
-            AlterColumn("dbo.Users", "FIO", c => c.String());
-            DropColumn("dbo.Books", "Image");
-            DropTable("dbo.Genres");
+            //DropForeignKey("dbo.Genres", "Books_Id", "dbo.Books");
+            //DropIndex("dbo.Genres", new[] { "Books_Id" });
+            //AlterColumn("dbo.Authors", "FirstName", c => c.String(maxLength: 100, unicode: false));
+            //AlterColumn("dbo.Authors", "LastName", c => c.String(maxLength: 100, unicode: false));
+            //AlterColumn("dbo.Users", "FIO", c => c.String());
+            //DropColumn("dbo.Books", "Image");
+            //DropTable("dbo.Genres");
         }
         
         public override void Down()

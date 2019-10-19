@@ -11,6 +11,8 @@ namespace DataLayer.Entities
         public Model1()
             : base("name=Model1")
         {
+            Database.SetInitializer<Model1>(new MyInitializer());
+
         }
 
         public virtual DbSet<Authors> Authors { get; set; }
